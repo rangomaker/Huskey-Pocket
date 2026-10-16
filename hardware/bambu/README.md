@@ -44,7 +44,7 @@ Estimación del conjunto: **37.5 g de PETG**, incluidos **4.1 g de soportes**, y
 4. Pulsa **Laminar placa**, revisa la previsualización y envía la impresión a tu A1. El proyecto usa un solo filamento y no requiere AMS.
 5. Deja enfriar la placa antes de retirar las piezas; retira los soportes y el brim antes del montaje.
 
-El perfil se ha laminado y revisado en Bambu Studio; el ajuste físico entre piezas debe comprobarse en la primera impresión.
+La impresión de las piezas y su encaje físico están probados en un dispositivo real, armado y funcionando. El perfil 3MF incluido se ha laminado y revisado en Bambu Studio.
 
 ## English
 
@@ -88,4 +88,4 @@ Set estimate: **37.5 g of PETG**, including **4.1 g of supports**, and **2 h 53 
 4. Click **Slice plate**, review the preview and send the print to your A1. The project uses one filament and requires no AMS.
 5. Let the plate cool before removing the parts; remove supports and brims before assembly.
 
-The profile has been sliced and reviewed in Bambu Studio; physical fit between the parts must be checked on the first print.
+The printed parts and their physical fit have been tested in a real, assembled and working device. The included 3MF profile has been sliced and reviewed in Bambu Studio.

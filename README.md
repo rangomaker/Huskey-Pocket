@@ -4,6 +4,8 @@
 
 A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Store credentials locally, generate TOTP codes, and type data through USB or Bluetooth Low Energy HID without cloud accounts or service dependencies.
 
+**Built and working device**, with physically tested printed parts and enclosure fit.
+
 <p align="center">
   <img src="assets/renders/huskey-gray-three-quarter.png" width="360" alt="Gray Huskey Pocket">
   <img src="assets/renders/huskey-black-three-quarter.png" width="360" alt="Black Huskey Pocket">

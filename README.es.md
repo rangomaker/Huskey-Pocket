@@ -4,6 +4,8 @@
 
 Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. Guarda credenciales localmente, genera códigos TOTP y permite escribir datos mediante teclado USB o Bluetooth Low Energy, sin depender de cuentas ni servicios en la nube.
 
+**Dispositivo construido y funcionando**, con las piezas impresas y el encaje de la carcasa probados físicamente.
+
 <p align="center">
   <img src="assets/renders/huskey-gray-three-quarter.png" width="360" alt="Huskey Pocket gris">
   <img src="assets/renders/huskey-black-three-quarter.png" width="360" alt="Huskey Pocket negro">
