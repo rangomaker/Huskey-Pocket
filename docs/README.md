@@ -10,6 +10,7 @@
 | Aviso por implementación | [PRIVACY.es.md](PRIVACY.es.md) | [PRIVACY.md](PRIVACY.md) |
 | Funcionalidades | [FEATURES.es.md](../FEATURES.es.md) | [FEATURES.md](../FEATURES.md) |
 | Renders y UI | [Galería / Gallery](GALLERY.md) | [Galería / Gallery](GALLERY.md) |
+| Impresión 3D · Bambu A1 | [PETG · 0.4 mm](../hardware/bambu/README.md#español) | [PETG · 0.4 mm](../hardware/bambu/README.md#english) |
 
 ## Manuales / Manuals
 
@@ -24,7 +25,8 @@
 
 ## Diseño y recursos / Design and assets
 
-- [Carcasa e impresión 3D / Enclosure and 3D printing](../hardware/README.md): fuente Blender y piezas STL / Blender source and STL parts.
+- [Proyecto 3MF listo para A1 / A1 print project](../hardware/Huskey_Pocket_A1_PETG_04.3mf): PETG, boquilla de / nozzle 0.4 mm, placa PEI texturizada / textured PEI plate.
+- [Fuente Blender / Blender source](../hardware/CASE.blend) y [piezas STL / STL parts](../hardware/STL/).
 - [Renders](../assets/renders/) y [referencias de UI / UI references](../assets/ui/).
 - [Licencia del proyecto / Project license](../LICENSE).
 - [Recursos de terceros / Third-party resources](../THIRD_PARTY_NOTICES.md).

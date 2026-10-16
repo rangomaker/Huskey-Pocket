@@ -17,6 +17,7 @@ The device functions as an offline cryptographic vault for the secure storage, r
 * **Touch Digitizer**: CST328 capacitive touch controller over a dedicated I2C interface (Wire1 bus) supporting continuous gestures and multi-region taps.
 * **Real-Time Clock (RTC)**: Dedicated PCF85063 chip on the primary I2C interface (Wire bus). Requires an external backup battery to retain the date and time while the device is powered off and support TOTP across power cycles.
 * **Battery and Enclosure**: Main 3.7 V LiPo battery in the **523450** format. The enclosure is designed for this format; RTC backup uses a separate external battery.
+* **3D Printing**: [Bambu Lab A1 3MF project](hardware/Huskey_Pocket_A1_PETG_04.3mf), with all four parts oriented, supports and a PETG profile for a 0.4 mm nozzle and textured PEI plate. Uses 0.16 mm layers, three walls and 20% gyroid infill. [Printing guide](hardware/bambu/README.md#english).
 * **Inertial Measurement Unit (IMU)**: QMI8658C 6-axis accelerometer and gyroscope over I2C (Wire bus) for real-time dynamic motion and tilt monitoring.
 * **Removable Storage**: MicroSD card slot wired in native 1-bit SD_MMC mode for high-speed transfers and electrical isolation.
 * **Haptic Feedback**: Coreless ERM vibration motor driven by an onboard transistor to provide physical feedback on keypad taps and system confirmations.

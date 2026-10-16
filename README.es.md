@@ -11,6 +11,8 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 
 > **Proyecto de referencia, sin mantenimiento activo.** Se comparte bajo licencia MIT, tal cual, sin soporte técnico, correcciones ni nuevas funciones garantizadas. Puedes hacer un fork y continuar su desarrollo.
 
+**Impresión 3D:** [3MF listo para Bambu Lab A1 · PETG · boquilla de 0.4 mm](hardware/Huskey_Pocket_A1_PETG_04.3mf) · [Configuración e instrucciones](hardware/bambu/README.md#español).
+
 ## Características
 
 ### Configuración inicial (onboarding)
@@ -115,7 +117,8 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 ### Capturas y recursos del proyecto
 
 - Capturas **BMP en microSD** mediante los comandos serie `shot`, `shot2` y `shot3`.
-- Código fuente, manuales, whitepaper, galería de renders, pantallas de UI y [archivos de la carcasa](hardware/README.md): fuente editable en Blender y cuatro piezas STL para impresión 3D.
+- Código fuente, manuales, whitepaper, galería de renders, pantallas de UI, [carcasa editable en Blender](hardware/CASE.blend) y [cuatro piezas STL](hardware/STL/) para impresión 3D.
+- [Proyecto 3MF para Bambu Lab A1](hardware/Huskey_Pocket_A1_PETG_04.3mf), preparado para **PETG y boquilla de 0.4 mm**: las cuatro piezas orientadas en una sola cama, con soportes y ajustes de impresión incluidos para **placa PEI texturizada**.
 
 Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 
@@ -125,6 +128,7 @@ Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 2. Abre [password_manager.ino](firmware/password_manager/password_manager.ino) en Arduino IDE. Conserva juntos todos los archivos del sketch.
 3. Instala las dependencias y configura la placa con la [guía de compilación](docs/BUILD.es.md).
 4. Personaliza el [aviso de privacidad](docs/PRIVACY.es.md) antes de distribuir tu implementación.
+5. Imprime la carcasa con el [proyecto 3MF para A1](hardware/Huskey_Pocket_A1_PETG_04.3mf). Ábrelo como proyecto en Bambu Studio y pulsa **Laminar placa**; consulta la [guía de impresión](hardware/bambu/README.md#español) para los ajustes y la orientación de cada pieza.
 
 ## Aviso de privacidad
 
@@ -200,6 +204,8 @@ assets/renders/             Renders del dispositivo
 assets/ui/                  Referencias de interfaz en alta resolución
 hardware/CASE.blend         Fuente Blender de la carcasa
 hardware/STL/               Piezas para impresión 3D: BUTTON, COVER, FRAME y PLATE
+hardware/*.3mf              Proyecto de impresión para A1, PETG y boquilla de 0.4 mm
+hardware/bambu/             Guía de impresión y configuración en español e inglés
 FEATURES.es.md              Funciones en español
 FEATURES.md                 Funciones en inglés
 LICENSE                     Licencia MIT

@@ -11,6 +11,8 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 
 > **Reference project, without active maintenance.** Shared under the MIT License, as is, without guaranteed support, fixes or feature updates. Forks and independent development are welcome.
 
+**3D printing:** [3MF ready for Bambu Lab A1 · PETG · 0.4 mm nozzle](hardware/Huskey_Pocket_A1_PETG_04.3mf) · [Settings and instructions](hardware/bambu/README.md#english).
+
 ## Features
 
 ### Initial setup (onboarding)
@@ -115,7 +117,8 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 ### Screenshots and project resources
 
 - **BMP screenshots on microSD** through the serial commands `shot`, `shot2` and `shot3`.
-- Source code, manuals, whitepaper, render gallery, UI screens and [enclosure files](hardware/README.md): editable Blender source and four STL parts for 3D printing.
+- Source code, manuals, whitepaper, render gallery, UI screens, [editable Blender enclosure](hardware/CASE.blend) and [four STL parts](hardware/STL/) for 3D printing.
+- [Bambu Lab A1 3MF project](hardware/Huskey_Pocket_A1_PETG_04.3mf), prepared for **PETG and a 0.4 mm nozzle**: all four parts oriented on one plate, with supports and print settings included for a **textured PEI plate**.
 
 See [FEATURES.md](FEATURES.md) for the module breakdown.
 
@@ -125,6 +128,7 @@ See [FEATURES.md](FEATURES.md) for the module breakdown.
 2. Open [password_manager.ino](firmware/password_manager/password_manager.ino) in Arduino IDE. Keep all sketch files together.
 3. Install dependencies and configure the board using the [build guide](docs/BUILD.md).
 4. Customize the [privacy notice](docs/PRIVACY.md) before distributing your implementation.
+5. Print the enclosure using the [A1 3MF project](hardware/Huskey_Pocket_A1_PETG_04.3mf). Open it as a project in Bambu Studio and click **Slice plate**; see the [printing guide](hardware/bambu/README.md#english) for settings and individual part orientations.
 
 ## Privacy notice
 
@@ -200,6 +204,8 @@ assets/renders/             Device renders
 assets/ui/                  High-resolution UI references
 hardware/CASE.blend         Blender enclosure source
 hardware/STL/               3D printing parts: BUTTON, COVER, FRAME and PLATE
+hardware/*.3mf              Print project for A1, PETG and a 0.4 mm nozzle
+hardware/bambu/             Printing guide and settings in Spanish and English
 FEATURES.es.md              Spanish feature description
 FEATURES.md                 English feature description
 LICENSE                     MIT License

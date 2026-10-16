@@ -17,6 +17,7 @@ El dispositivo opera como una boveda fisica offline para el almacenamiento, cons
 * Panel Tactil: Digitalizador capacitivo CST328 sobre bus I2C (Wire1), con soporte de gestos y respuesta continua.
 * Reloj en Tiempo Real (RTC): Chip dedicado PCF85063 conectado via bus I2C (Wire). Requiere una batería externa de respaldo para conservar la fecha y la hora al apagar el dispositivo y mantener el funcionamiento de TOTP entre apagados.
 * Batería y carcasa: Batería principal LiPo de 3.7 V, formato **523450**. La carcasa está diseñada para alojar este formato; el respaldo del RTC utiliza una batería externa independiente.
+* Impresión 3D: [Proyecto 3MF para Bambu Lab A1](hardware/Huskey_Pocket_A1_PETG_04.3mf), con las cuatro piezas orientadas, soportes y perfil para PETG, boquilla de 0.4 mm y placa PEI texturizada. Incluye capas de 0.16 mm, tres paredes y relleno giroide del 20 %. [Guía de impresión](hardware/bambu/README.md#español).
 * Sensor Inercial (IMU): Acelerometro y giroscopio de 6 ejes QMI8658C via I2C (Wire) para deteccion de movimiento y eventos dinamicos.
 * Almacenamiento Extraible: Lector de tarjeta MicroSD operando en modo SD_MMC de 1 bit.
 * Respuesta Haptica: Motor de vibracion ERM con circuito de excitacion por transistor para retroalimentacion tactil en pulsaciones y eventos de sistema.

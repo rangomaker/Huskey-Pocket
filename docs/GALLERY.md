@@ -20,7 +20,9 @@ Renders del dispositivo y pantallas de la interfaz. / Device renders and interfa
 
 [Fuente Blender de la carcasa / Blender enclosure source](../hardware/CASE.blend)
 
-[Piezas STL para impresión 3D / STL parts for 3D printing](../hardware/README.md): BUTTON, COVER, FRAME y / and PLATE.
+[Piezas STL para impresión 3D / STL parts for 3D printing](../hardware/STL/): BUTTON, COVER, FRAME y / and PLATE.
+
+[Proyecto 3MF para Bambu Lab A1 / Bambu Lab A1 3MF project](../hardware/Huskey_Pocket_A1_PETG_04.3mf): PETG, boquilla de / nozzle 0.4 mm y placa PEI texturizada / and textured PEI plate. [Configuración e instrucciones / Settings and instructions](../hardware/bambu/README.md).
 
 ## Interfaz / Interface
 

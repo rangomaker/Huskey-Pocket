@@ -1,6 +1,6 @@
 # Bambu Lab A1 · PETG · 0.4 mm
 
-[Abrir proyecto / Open project](Huskey_Pocket_A1_PETG_04.3mf)
+[Abrir proyecto / Open project](../Huskey_Pocket_A1_PETG_04.3mf)
 
 ## Español
 
