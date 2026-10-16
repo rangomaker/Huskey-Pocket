@@ -1,6 +1,6 @@
 # Galería / Gallery
 
-Fotografías del dispositivo real, renders y pantallas de la interfaz. / Real device photographs, renders and interface screens.
+Fotografías del dispositivo real, renders y pantallas de la interfaz. Las imágenes muestran la versión 1.0.0; el código fuente del repositorio corresponde al firmware 1.0.1. / Real device photographs, renders, and interface screens. The images show version 1.0.0; the repository source code corresponds to firmware 1.0.1.
 
 ## Dispositivo real / Working device
 

@@ -13,6 +13,8 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 
 [Real device photos, renders and interface screens](docs/GALLERY.md).
 
+**Version note:** Product photos, renders, and interface images show version **1.0.0**. The source code in this repository is firmware **1.0.1**.
+
 > **Reference project, without active maintenance.** Shared under the MIT License, as is, without guaranteed support, fixes or feature updates. Forks and independent development are welcome.
 
 **3D printing:** [3MF ready for Bambu Lab A1 · PETG · 0.4 mm nozzle](hardware/Huskey_Pocket_A1_PETG_04.3mf) · [Settings and instructions](hardware/bambu/README.md#english).
@@ -132,7 +134,7 @@ See [FEATURES.md](FEATURES.md) for the module breakdown.
 
 Earlier in development, **two AI-assisted memory reviews** focused on detecting leaks and memory management issues. **All 16 tests passed**. These results apply to the code evaluated at that time.
 
-The device is built and working, with physically tested printing and enclosure fit. Firmware **1.0.1** fixes compile and pass regression tests; validation on the device remains pending.
+The device is built and working, with physically tested printing and enclosure fit. The firmware source in this repository is version **1.0.1**.
 
 **Huskey Pocket has not undergone a security audit.** Memory reviews and functional tests do not certify the project's security.
 

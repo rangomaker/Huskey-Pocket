@@ -13,6 +13,8 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 
 [Fotos del dispositivo real, renders y pantallas](docs/GALLERY.md).
 
+**Versiones:** las fotografías, renders e imágenes de la interfaz muestran la versión **1.0.0**. El código fuente de este repositorio corresponde al firmware **1.0.1**.
+
 > **Proyecto de referencia, sin mantenimiento activo.** Se comparte bajo licencia MIT, tal cual, sin soporte técnico, correcciones ni nuevas funciones garantizadas. Puedes hacer un fork y continuar su desarrollo.
 
 **Impresión 3D:** [3MF listo para Bambu Lab A1 · PETG · boquilla de 0.4 mm](hardware/Huskey_Pocket_A1_PETG_04.3mf) · [Configuración e instrucciones](hardware/bambu/README.md#español).
@@ -132,7 +134,7 @@ Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 
 En una etapa anterior del desarrollo se realizaron **dos revisiones de memoria asistidas por IA**, enfocadas en detectar fugas y problemas de gestión de memoria. Las **16 pruebas ejecutadas se completaron satisfactoriamente**. Estos resultados corresponden al código evaluado en aquel momento.
 
-El dispositivo está construido y funcionando, con impresión y encaje de la carcasa probados físicamente. Las correcciones del firmware **1.0.1** compilan y pasan las pruebas de regresión; su validación en el dispositivo sigue pendiente.
+El dispositivo está construido y funcionando, con impresión y encaje de la carcasa probados físicamente. El código fuente del firmware incluido en este repositorio es la versión **1.0.1**.
 
 **Huskey Pocket no ha recibido una auditoría de seguridad.** Las revisiones de memoria y las pruebas funcionales no certifican la seguridad del proyecto.
 
