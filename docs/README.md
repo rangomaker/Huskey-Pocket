@@ -14,18 +14,17 @@
 
 ## Manuales / Manuals
 
-Los manuales de referencia se actualizaron para reflejar la versión 1.0.1, el hardware y las pruebas conocidas. Huskey Pocket no ha recibido una auditoría de seguridad; las revisiones de memoria asistidas por IA no equivalen a una auditoría. Consulta el [estado de pruebas](../README.es.md#pruebas-y-revisiones).
+Los manuales de referencia en español e inglés se actualizaron para reflejar la versión 1.0.1, el hardware y las pruebas conocidas. Huskey Pocket no ha recibido una auditoría de seguridad; las revisiones de memoria asistidas por IA no equivalen a una auditoría. Consulta el [estado de pruebas](../README.es.md#pruebas-y-revisiones).
 
-The reference manuals were updated to reflect firmware 1.0.1, the hardware and the known test status. Huskey Pocket has not undergone a security audit; AI-assisted memory reviews are not a security audit. See the [testing status](../README.md#testing-and-reviews).
+The reference manuals are available in Spanish and English and were updated to reflect firmware 1.0.1, the hardware, and the known test status. Huskey Pocket has not undergone a security audit; AI-assisted memory reviews are not a security audit. See the [testing status](../README.md#testing-and-reviews).
 
-| Archivo | Contenido |
-| --- | --- |
-| [Manual de usuario](reference/Huskey_Pocket_Manual_Usuario.docx) | Uso del dispositivo y sus funciones |
-| [Documentación técnica (PDF)](reference/Huskey_Pocket_Documentacion_Tecnica.pdf) | Arquitectura y módulos del firmware |
-| [Documentación técnica (DOCX)](reference/Huskey_Pocket_Documentacion_Tecnica.docx) | Versión editable del documento técnico |
-| [Whitepaper, revisión 4](reference/Huskey_Pocket_Whitepaper_Rev4.docx) | Diseño, seguridad y límites descritos por el proyecto |
-| [Manual y documentación técnica](reference/Manual_y_Documentacion_Tecnica_HuskeyPocket.docx) | Documento general de referencia |
-| [Funciones](reference/Funciones.docx) | Descripción de funciones |
+| Documento | Español | English |
+| --- | --- | --- |
+| Manual de usuario / User manual | [DOCX](reference/Huskey_Pocket_Manual_Usuario.docx) | [DOCX](reference/Huskey_Pocket_Manual_Usuario_EN.docx) |
+| Documentación técnica del firmware / Firmware technical documentation | [PDF](reference/Huskey_Pocket_Documentacion_Tecnica.pdf) · [DOCX](reference/Huskey_Pocket_Documentacion_Tecnica.docx) | [PDF](reference/Huskey_Pocket_Documentacion_Tecnica_EN.pdf) · [DOCX](reference/Huskey_Pocket_Documentacion_Tecnica_EN.docx) |
+| Whitepaper, revisión 4 / Whitepaper, revision 4 | [DOCX](reference/Huskey_Pocket_Whitepaper_Rev4.docx) | [DOCX](reference/Huskey_Pocket_Whitepaper_Rev4_EN.docx) |
+| Manual y documentación técnica / Operation and technical reference | [DOCX](reference/Manual_y_Documentacion_Tecnica_HuskeyPocket.docx) | [DOCX](reference/Manual_y_Documentacion_Tecnica_HuskeyPocket_EN.docx) |
+| Funciones / Features | [DOCX](reference/Funciones.docx) | [DOCX](reference/Funciones_EN.docx) |
 
 ## Diseño y recursos / Design and assets
 
