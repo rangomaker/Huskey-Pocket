@@ -25,7 +25,7 @@ The included text is a **notice not configured** message, not a ready-to-publish
 
 ## Acknowledgement and version
 
-The default checkbox reads “I have read this notice”. Onboarding stores `legal_ok` and the notice version in `legal_ver`, under the `vprefs` NVS namespace; these names are retained for compatibility. This records a local reading acknowledgement, not proof of consent or a replacement for your notice.
+The default checkbox reads “I have read this notice”. Onboarding stores `legal_ok` and the notice version in `legal_ver`, under the `vprefs` NVS namespace. This records a local reading acknowledgement, not proof of consent or a replacement for your notice.
 
 Changing `HP_PRIVACY_NOTICE_VERSION` **does not reopen onboarding on configured devices**. Implement any notice update or additional acknowledgement flow your distribution requires. Do not reset a device containing real data to test this: resetting erases the vault.
 

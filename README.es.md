@@ -22,7 +22,7 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 - Interfaz en español e inglés, temas claro/oscuro/personalizado y teclados dividido y T9.
 - Código fuente, manuales, whitepaper, renders, referencias de UI y carcasa en Blender.
 
-Consulta [FEATURES.es.md](FEATURES.es.md). Las prestaciones físicas y de seguridad requieren validación en cada implementación.
+Consulta [FEATURES.es.md](FEATURES.es.md) para conocer todas las funciones.
 
 ## Empieza aquí
 
@@ -42,15 +42,13 @@ Consulta [FEATURES.es.md](FEATURES.es.md). Las prestaciones físicas y de seguri
 | Elemento | Configuración del proyecto |
 | --- | --- |
 | Microcontrolador | ESP32-S3, 240 MHz |
-| Flash | **16 MB para la tabla de particiones incluida** |
-| PSRAM | OPI PSRAM, 8 MB según los recursos del proyecto |
+| Flash | **16 MB** |
+| PSRAM | OPI PSRAM, 8 MB |
 | Pantalla / táctil | ST7789, 240 × 320 / CST328 |
 | RTC / IMU | PCF85063 / QMI8658C |
 | Almacenamiento externo | MicroSD, SD_MMC de 1 bit |
 | Dependencias | Arduino-ESP32 3.3.10, LVGL 8.3.6, NimBLE-Arduino 2.5.0 |
 | USB Mode | **USB-OTG (TinyUSB)** para HID y MSC |
-
-Los recursos originales mencionan flash de 8 MB; esa capacidad no admite el `partitions.csv` incluido. La [guía de compilación](docs/BUILD.es.md) detalla los ajustes y su verificación.
 
 ## Interfaz
 
@@ -61,23 +59,21 @@ Los recursos originales mencionan flash de 8 MB; esa capacidad no admite el `par
   <img src="assets/ui/totp-setup-dark.png" width="180" alt="Configuración TOTP">
 </p>
 
-Imágenes de referencia suministradas con el proyecto. Más vistas en la [galería](docs/GALLERY.md).
+[Ver la galería completa](docs/GALLERY.md).
 
 ## Estructura
 
 ```text
 firmware/password_manager/   Sketch Arduino, módulos, fuentes y lv_conf.h
-docs/                       Guías actuales e índice
-docs/reference/             Manuales y whitepaper originales (DOCX/PDF)
+docs/                       Guías e índice
+docs/reference/             Manuales y whitepaper (DOCX/PDF)
 assets/renders/             Renders del dispositivo
 assets/ui/                  Referencias de interfaz en alta resolución
 hardware/CASE.blend         Fuente Blender de la carcasa
 FEATURES.es.md              Funciones en español
 FEATURES.md                 Funciones en inglés
-LICENSE                     Licencia MIT existente
+LICENSE                     Licencia MIT
 ```
-
-Los manuales originales se conservan sin cambios y pueden describir otras revisiones o unidades aprovisionadas. Para compilar esta copia, usa la guía actual y el código incluido.
 
 ## Licencia
 

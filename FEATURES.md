@@ -8,14 +8,12 @@ Technical reference detailing the architecture, capabilities, and operational fe
 
 ---
 
-> This feature description is aligned with selected parameters in the included source. Original manuals describe multiple revisions; hardware behavior and provisioning require separate verification. See [build instructions](docs/BUILD.md) and [implementation privacy notice](docs/PRIVACY.md).
-
 ## 1. Overview and Hardware Architecture
 
 The device functions as an offline cryptographic vault for the secure storage, retrieval, and injection of digital credentials without any cloud or internet dependencies.
 
 * **Microcontroller**: Espressif ESP32-S3 (Dual-Core Xtensa LX7 up to 240 MHz with integrated Flash and PSRAM).
-* **Display**: 2.8-inch IPS TFT LCD, 240x320 resolution, driven by an ST7789 controller over SPI configured at 80 MHz in the included driver.
+* **Display**: 2.8-inch IPS TFT LCD, 240x320 resolution, driven by an ST7789 controller over SPI at 80 MHz.
 * **Touch Digitizer**: CST328 capacitive touch controller over a dedicated I2C interface (Wire1 bus) supporting continuous gestures and multi-region taps.
 * **Real-Time Clock (RTC)**: Dedicated PCF85063 chip on the primary I2C interface (Wire bus) with battery backup, maintaining UTC time independent of the host MCU.
 * **Inertial Measurement Unit (IMU)**: QMI8658C 6-axis accelerometer and gyroscope over I2C (Wire bus) for real-time dynamic motion and tilt monitoring.

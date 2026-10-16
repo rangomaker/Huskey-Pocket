@@ -8,8 +8,6 @@ Documento tecnico descriptivo de las capacidades, arquitectura y caracteristicas
 
 ---
 
-> Esta descripcion alinea parametros concretos con el codigo incluido. Los manuales originales describen distintas revisiones; el comportamiento fisico y el aprovisionamiento requieren verificacion aparte. Consulta la [guia de compilacion](docs/BUILD.es.md) y el [aviso de cada implementacion](docs/PRIVACY.es.md).
-
 ## 1. Descripcion General y Arquitectura Hardware
 
 El dispositivo opera como una boveda fisica offline para el almacenamiento, consulta e inyeccion de credenciales digitales sin conexion a internet ni servicios en la nube.

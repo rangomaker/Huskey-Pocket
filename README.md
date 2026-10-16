@@ -22,7 +22,7 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 - Spanish/English interface, light/dark/custom themes, split and T9 keyboards.
 - Source code, manuals, whitepaper, renders, UI references and Blender enclosure source.
 
-See [FEATURES.md](FEATURES.md). Physical and security behavior requires validation for each implementation.
+See [FEATURES.md](FEATURES.md) for the full feature breakdown.
 
 ## Getting started
 
@@ -42,15 +42,13 @@ See [FEATURES.md](FEATURES.md). Physical and security behavior requires validati
 | Component | Project configuration |
 | --- | --- |
 | Microcontroller | ESP32-S3, 240 MHz |
-| Flash | **16 MB for the included partition table** |
-| PSRAM | OPI PSRAM, 8 MB according to project resources |
+| Flash | **16 MB** |
+| PSRAM | OPI PSRAM, 8 MB |
 | Display / touch | ST7789, 240 × 320 / CST328 |
 | RTC / IMU | PCF85063 / QMI8658C |
 | External storage | MicroSD, 1-bit SD_MMC |
 | Dependencies | Arduino-ESP32 3.3.10, LVGL 8.3.6, NimBLE-Arduino 2.5.0 |
 | USB Mode | **USB-OTG (TinyUSB)** for HID and MSC |
-
-Original resources mention 8 MB flash; that capacity cannot hold the included `partitions.csv`. The [build guide](docs/BUILD.md) covers settings and verification.
 
 ## Interface
 
@@ -61,23 +59,21 @@ Original resources mention 8 MB flash; that capacity cannot hold the included `p
   <img src="assets/ui/totp-setup-dark.png" width="180" alt="TOTP setup">
 </p>
 
-Visual references supplied with the project. More views in the [gallery](docs/GALLERY.md).
+[View the full gallery](docs/GALLERY.md).
 
 ## Repository layout
 
 ```text
 firmware/password_manager/   Arduino sketch, modules, fonts and lv_conf.h
-docs/                       Current guides and index
-docs/reference/             Original manuals and whitepaper (DOCX/PDF)
+docs/                       Guides and index
+docs/reference/             Manuals and whitepaper (DOCX/PDF)
 assets/renders/             Device renders
 assets/ui/                  High-resolution UI references
 hardware/CASE.blend         Blender enclosure source
 FEATURES.es.md              Spanish feature description
 FEATURES.md                 English feature description
-LICENSE                     Existing MIT License
+LICENSE                     MIT License
 ```
-
-Original manuals are preserved unchanged and may describe other revisions or provisioned devices. Use the current guide and included code to build this copy.
 
 ## License
 

@@ -1,6 +1,6 @@
 # Documentación / Documentation
 
-## Guías actuales / Current guides
+## Guías / Guides
 
 | Documento | Español | English |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | Funcionalidades | [FEATURES.es.md](../FEATURES.es.md) | [FEATURES.md](../FEATURES.md) |
 | Renders y UI | [Galería / Gallery](GALLERY.md) | [Galería / Gallery](GALLERY.md) |
 
-## Manuales originales / Original manuals
+## Manuales / Manuals
 
 | Archivo | Contenido |
 | --- | --- |
@@ -19,11 +19,7 @@
 | [Documentación técnica (DOCX)](reference/Huskey_Pocket_Documentacion_Tecnica.docx) | Versión editable del documento técnico |
 | [Whitepaper, revisión 4](reference/Huskey_Pocket_Whitepaper_Rev4.docx) | Diseño, seguridad y límites descritos por el proyecto |
 | [Manual y documentación técnica](reference/Manual_y_Documentacion_Tecnica_HuskeyPocket.docx) | Documento general de referencia |
-| [Funciones](reference/Funciones.docx) | Descripción original de capacidades |
-
-Estos seis archivos se conservan sin modificar. Contienen diferencias entre revisiones: por ejemplo, capacidad de flash, parámetros criptográficos y estado de Secure Boot/Flash Encryption. Las descripciones de unidades aprovisionadas o de HuskeyFlasher no incluyen aquí sus herramientas ni sus claves. Para esta copia, consulta el código y las guías actuales; no se puede deducir la configuración eFuse de una unidad física a partir de estos archivos.
-
-These six files are preserved unchanged. They describe different revisions, including differences in flash capacity, cryptographic parameters and Secure Boot/Flash Encryption status. Descriptions of provisioned devices or HuskeyFlasher do not include those tools or keys here. Use the source and current guides for this copy; a physical device's eFuse configuration cannot be established from these files.
+| [Funciones](reference/Funciones.docx) | Descripción de funciones |
 
 ## Diseño y recursos / Design and assets
 

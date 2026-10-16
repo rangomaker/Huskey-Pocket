@@ -1,6 +1,6 @@
 # Galería / Gallery
 
-Renders y referencias visuales suministrados con Huskey Pocket. / Renders and visual references supplied with Huskey Pocket.
+Renders del dispositivo y pantallas de la interfaz. / Device renders and interface screens.
 
 ## Dispositivo / Device
 
@@ -22,7 +22,7 @@ Renders y referencias visuales suministrados con Huskey Pocket. / Renders and vi
 
 ## Interfaz / Interface
 
-Referencias en ambos temas; no sustituyen una prueba del firmware en hardware. / References in both themes; these do not replace hardware testing.
+Temas claro y oscuro. / Light and dark themes.
 
 | Pantalla / Screen | Oscuro / Dark | Claro / Light |
 | --- | --- | --- |

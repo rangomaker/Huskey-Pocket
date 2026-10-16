@@ -25,7 +25,7 @@ El texto incluido es un mensaje de **aviso pendiente de configurar**, no una pol
 
 ## Lectura y versión
 
-La casilla predeterminada dice «He leído este aviso». El asistente guarda el indicador `legal_ok` y la versión del aviso en `legal_ver`, dentro de `vprefs` en NVS; esos nombres se conservan por compatibilidad. Ese registro describe una lectura local, no demuestra consentimiento ni sustituye tu aviso.
+La casilla predeterminada dice «He leído este aviso». El asistente guarda el indicador `legal_ok` y la versión del aviso en `legal_ver`, dentro de `vprefs` en NVS. Ese registro describe una lectura local, no demuestra consentimiento ni sustituye tu aviso.
 
 Cambiar `HP_PRIVACY_NOTICE_VERSION` **no vuelve a abrir el asistente en equipos ya configurados**. Si tu implementación requiere presentar un aviso actualizado o registrar otras acciones, debes implementar ese flujo. No restablezcas un equipo con datos reales para probarlo: el restablecimiento elimina la bóveda.
 

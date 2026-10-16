@@ -4,7 +4,7 @@
 
 ## Dependencies
 
-Repository preparation uses the versions installed locally:
+Dependency versions:
 
 | Component | Version |
 | --- | --- |
@@ -19,7 +19,7 @@ arduino-cli core install esp32:esp32@3.3.10
 arduino-cli lib install "lvgl@8.3.6" "NimBLE-Arduino@2.5.0"
 ```
 
-The sketch includes [lv_conf.h](../firmware/password_manager/lv_conf.h), recovered from the project's local installation. Retain this configuration: it enables RGB565 without byte swapping, a `millis()` tick source, QR, snapshots and the required fonts. If your LVGL installation loads another configuration, configure it to use the header included in this sketch.
+Use [lv_conf.h](../firmware/password_manager/lv_conf.h) to configure LVGL: RGB565 without byte swapping, a `millis()` tick source, QR, snapshots and interface fonts.
 
 Display, touch, RTC and IMU drivers, fonts and application modules are included. USB, SD_MMC, LittleFS, Preferences and mbedTLS come from Arduino-ESP32.
 
@@ -40,22 +40,18 @@ Open [password_manager.ino](../firmware/password_manager/password_manager.ino). 
 | Upload Speed | 921600 |
 | Core Debug Level | None |
 
-Keep [partitions.csv](../firmware/password_manager/partitions.csv) beside the sketch and use it in the build. Its last partition ends at `0xE03000`, beyond 8 MB; this table requires 16 MB flash. Check your board's memory before flashing. USB-OTG enables the HID and MSC classes used by the source.
+The [partitions.csv](../firmware/password_manager/partitions.csv) table requires 16 MB flash. Keep it beside the sketch. Select **USB-OTG (TinyUSB)** to enable the HID keyboard and MSC storage.
 
 ## Arduino CLI
 
 From the repository root:
 
 ```powershell
-arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashMode=qio,PSRAM=opi,PartitionScheme=custom,USBMode=default,CDCOnBoot=cdc,UploadSpeed=921600,DebugLevel=none" --build-path .work/build firmware/password_manager
+arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashMode=qio,PSRAM=opi,PartitionScheme=custom,USBMode=default,CDCOnBoot=cdc,UploadSpeed=921600,DebugLevel=none" --build-path build firmware/password_manager
 ```
 
-Outputs go to `.work/build`, excluded from Git. This compiles without flashing or modifying a connected device.
+Firmware output is written to `build/`.
 
 ## Privacy notice
 
 Before distributing firmware, complete [privacy_notice.h](../firmware/password_manager/privacy_notice.h) using [PRIVACY.md](PRIVACY.md). The repository includes a visible notice-not-configured message in both languages.
-
-## Verification
-
-Build results and verification limits are recorded in [VALIDATION.md](VALIDATION.md). Compilation does not test the display, touch, keyboard, storage, RTC, IMU, battery or a physical device's provisioning state.
