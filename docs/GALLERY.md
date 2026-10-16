@@ -1,8 +1,30 @@
 # Galería / Gallery
 
-Renders del dispositivo y pantallas de la interfaz. / Device renders and interface screens.
+Fotografías del dispositivo real, renders y pantallas de la interfaz. / Real device photographs, renders and interface screens.
 
-## Dispositivo / Device
+## Dispositivo real / Working device
+
+Huskey Pocket armado y funcionando, con la carcasa impresa en 3D. / An assembled, working Huskey Pocket with its 3D-printed enclosure.
+
+| Tema claro / Light theme | Tema oscuro / Dark theme |
+| --- | --- |
+| <img src="../assets/photos/huskey-entries-light.jpg" width="320" alt="Real device with entry list in light theme"> | <img src="../assets/photos/huskey-entries-dark.jpg" width="320" alt="Real device with entry list in dark theme"> |
+
+| Detalle de entrada / Entry detail | Bóveda vacía / Empty vault |
+| --- | --- |
+| <img src="../assets/photos/huskey-entry-detail.jpg" width="320" alt="Real device showing a credential with its password hidden"> | <img src="../assets/photos/huskey-empty-vault.jpg" width="320" alt="Real device showing an empty vault"> |
+
+| Bloqueo claro / Light lock screen | Bloqueo oscuro / Dark lock screen |
+| --- | --- |
+| <img src="../assets/photos/huskey-lock-light.jpg" width="320" alt="Real device with light lock screen"> | <img src="../assets/photos/huskey-lock-dark.jpg" width="320" alt="Real device with dark lock screen"> |
+
+### En mano / In hand
+
+<p align="center">
+  <img src="../assets/photos/huskey-in-hand.jpg" width="320" alt="Huskey Pocket held in a hand, showing its size and enclosure">
+</p>
+
+## Renders
 
 | Gris / Gray | Negro / Black |
 | --- | --- |

@@ -30,6 +30,7 @@ __pycache__/
 
 # Local verification and build outputs
 .work/
+/FOTOS/
 
 # Device data, backups and provisioning secrets
 .env

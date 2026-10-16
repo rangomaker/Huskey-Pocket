@@ -7,9 +7,11 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 **Built and working device**, with physically tested printed parts and enclosure fit.
 
 <p align="center">
-  <img src="assets/renders/huskey-gray-three-quarter.png" width="360" alt="Gray Huskey Pocket">
-  <img src="assets/renders/huskey-black-three-quarter.png" width="360" alt="Black Huskey Pocket">
+  <img src="assets/photos/huskey-entries-light.jpg" width="320" alt="Working Huskey Pocket showing the entry list in light theme">
+  <img src="assets/photos/huskey-entries-dark.jpg" width="320" alt="Working Huskey Pocket showing the entry list in dark theme">
 </p>
+
+[Real device photos, renders and interface screens](docs/GALLERY.md).
 
 > **Reference project, without active maintenance.** Shared under the MIT License, as is, without guaranteed support, fixes or feature updates. Forks and independent development are welcome.
 
@@ -203,6 +205,7 @@ firmware/password_manager/   Arduino sketch, modules, fonts and lv_conf.h
 docs/                       Guides and index
 docs/reference/             Manuals and whitepaper (DOCX/PDF)
 assets/renders/             Device renders
+assets/photos/              Photos of the assembled, working device
 assets/ui/                  High-resolution UI references
 hardware/CASE.blend         Blender enclosure source
 hardware/STL/               3D printing parts: BUTTON, COVER, FRAME and PLATE
