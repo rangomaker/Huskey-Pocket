@@ -25,7 +25,7 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 - Manual day, month, year, hour and minute settings in onboarding and Settings.
 - **12-hour or 24-hour** format and a status-bar clock.
 - Time-zone offsets from **UTC−12 to UTC+14**, in 30-minute steps.
-- A **PCF85063** RTC keeps time and supports TOTP without internet synchronization.
+- A **PCF85063** RTC keeps time and supports TOTP without internet synchronization. Date, time and TOTP functions require an **external RTC backup battery** to retain the date and time while the device is powered off.
 
 ### Credentials and organization
 
@@ -106,6 +106,7 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 
 ### Battery and power
 
+- The enclosure is designed to accommodate a **3.7 V LiPo battery in the 523450 format**. The RTC uses an external backup battery separate from the main battery.
 - LiPo voltage monitoring and battery-level estimation.
 - A status-bar level indicator, charging animation and low-battery indication.
 - Reading filters and compensation for voltage changes when charging connects or disconnects.
@@ -141,7 +142,8 @@ See [FEATURES.md](FEATURES.md) for the module breakdown.
 | Display / touch | ST7789, 240 × 320 / CST328 |
 | RTC / IMU | PCF85063 / QMI8658C |
 | External storage | MicroSD, 1-bit SD_MMC |
-| Battery | 3.7 V LiPo for portable operation |
+| Main battery | **523450** format 3.7 V LiPo; enclosure designed for this format |
+| RTC backup | External PCF85063 backup battery, required to retain the date and time and support TOTP across power cycles |
 | Haptics | Vibration motor |
 | USB Mode | **USB-OTG (TinyUSB)** for HID and MSC |
 

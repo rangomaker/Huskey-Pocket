@@ -2,6 +2,11 @@
 
 # Compilar el firmware
 
+## Baterías y carcasa
+
+- **Batería principal:** LiPo de 3.7 V, formato **523450**. La [carcasa](../hardware/CASE.blend) está diseñada para alojar este formato.
+- **Respaldo del RTC:** las funciones de fecha, hora y TOTP requieren una **batería externa de respaldo para el PCF85063**, independiente de la batería principal. Este respaldo conserva la fecha y la hora cuando el dispositivo está apagado.
+
 ## Paquete de la placa
 
 Instala **esp32 by Espressif Systems 3.3.10** desde el Gestor de placas. Este paquete contiene el núcleo Arduino-ESP32, el compilador y las APIs ESP-IDF.

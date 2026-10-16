@@ -15,7 +15,8 @@ El dispositivo opera como una boveda fisica offline para el almacenamiento, cons
 * Microcontrolador: Espressif ESP32-S3 (Dual-Core Xtensa LX7 a 240 MHz con memoria PSRAM y Flash integradas).
 * Pantalla: Panel LCD TFT IPS de 2.8 pulgadas, resolucion 240x320 pixeles con controlador ST7789 via bus SPI de alta velocidad.
 * Panel Tactil: Digitalizador capacitivo CST328 sobre bus I2C (Wire1), con soporte de gestos y respuesta continua.
-* Reloj en Tiempo Real (RTC): Chip dedicado PCF85063 conectado via bus I2C (Wire) con respaldo por bateria para mantener la estampa temporal independiente del microcontrolador.
+* Reloj en Tiempo Real (RTC): Chip dedicado PCF85063 conectado via bus I2C (Wire). Requiere una batería externa de respaldo para conservar la fecha y la hora al apagar el dispositivo y mantener el funcionamiento de TOTP entre apagados.
+* Batería y carcasa: Batería principal LiPo de 3.7 V, formato **523450**. La carcasa está diseñada para alojar este formato; el respaldo del RTC utiliza una batería externa independiente.
 * Sensor Inercial (IMU): Acelerometro y giroscopio de 6 ejes QMI8658C via I2C (Wire) para deteccion de movimiento y eventos dinamicos.
 * Almacenamiento Extraible: Lector de tarjeta MicroSD operando en modo SD_MMC de 1 bit.
 * Respuesta Haptica: Motor de vibracion ERM con circuito de excitacion por transistor para retroalimentacion tactil en pulsaciones y eventos de sistema.
@@ -105,6 +106,7 @@ El sistema permite escribir contraseñas y datos directamente en cualquier orden
 * Estandar Compatible: Algoritmo Time-based One-Time Password conforme a la norma RFC 6238 (HMAC-SHA1, codigos de 6 digitos, intervalo de validez de 30 segundos).
 * Independencia de Red:
   * El calculo temporal se apoya exclusivamente en el reloj de hardware interno y RTC externo PCF85063.
+  * Requiere una batería externa de respaldo para el RTC que conserve la fecha y la hora cuando el dispositivo está apagado.
 * Interfaz Visual Dinamica:
   * Temporizador grafico y numerico con actualizacion segundo a segundo del tiempo restante antes de la caducidad del token.
 * Escritura Automatizada:
@@ -183,6 +185,7 @@ El onboarding presenta las siguientes pantallas:
 - Ajuste manual de día, mes y año desde la pantalla de fecha en Ajustes.
 - Ajuste de horas y minutos y selección de formato de 12 o 24 horas.
 - Reloj PCF85063 y visualización de la hora en la barra de estado.
+- Batería externa de respaldo para el RTC, necesaria para conservar la fecha y la hora entre apagados y mantener el funcionamiento de TOTP.
 - Desplazamiento horario de UTC−12 a UTC+14 en pasos de 30 minutos.
 - Uso de la hora del dispositivo para TOTP y del tiempo transcurrido para el Modo perdido.
 

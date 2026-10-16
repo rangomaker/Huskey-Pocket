@@ -2,6 +2,11 @@
 
 # Build the firmware
 
+## Batteries and enclosure
+
+- **Main battery:** **523450** format 3.7 V LiPo. The [enclosure](../hardware/CASE.blend) is designed to accommodate this format.
+- **RTC backup:** date, time and TOTP functions require an **external PCF85063 backup battery**, separate from the main battery. This backup retains the date and time while the device is powered off.
+
 ## Board package
 
 Install **esp32 by Espressif Systems 3.3.10** through Boards Manager. This package supplies the Arduino-ESP32 core, compiler and ESP-IDF APIs.

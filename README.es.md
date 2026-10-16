@@ -25,7 +25,7 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 - Ajuste manual de día, mes, año, horas y minutos desde el onboarding y Ajustes.
 - Formato de **12 o 24 horas** y reloj visible en la barra de estado.
 - Zona horaria configurable de **UTC−12 a UTC+14**, en pasos de 30 minutos.
-- RTC **PCF85063** para mantener la hora y generar TOTP sin sincronización por internet.
+- RTC **PCF85063** para mantener la hora y generar TOTP sin sincronización por internet. Las funciones de fecha, hora y TOTP requieren una **batería externa de respaldo para el RTC**, que conserva la fecha y la hora al apagar el dispositivo.
 
 ### Credenciales y organización
 
@@ -106,6 +106,7 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 
 ### Batería y energía
 
+- La carcasa está diseñada para alojar una **batería LiPo de 3.7 V, formato 523450**. El RTC utiliza una batería externa de respaldo independiente de la batería principal.
 - Lectura de voltaje de la LiPo y estimación del nivel de batería.
 - Indicador de nivel en la barra de estado, animación de carga y señal de batería baja.
 - Filtrado de lecturas y compensación de cambios de tensión al conectar o desconectar la carga.
@@ -141,7 +142,8 @@ Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 | Pantalla / táctil | ST7789, 240 × 320 / CST328 |
 | RTC / IMU | PCF85063 / QMI8658C |
 | Almacenamiento externo | MicroSD, SD_MMC de 1 bit |
-| Batería | LiPo de 3.7 V para uso portátil |
+| Batería principal | LiPo de 3.7 V, formato **523450**; carcasa diseñada para este formato |
+| Respaldo del RTC | Batería externa para PCF85063, necesaria para conservar la fecha y la hora y mantener el funcionamiento de TOTP entre apagados |
 | Respuesta háptica | Motor de vibración |
 | USB Mode | **USB-OTG (TinyUSB)** para HID y MSC |
 

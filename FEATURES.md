@@ -15,7 +15,8 @@ The device functions as an offline cryptographic vault for the secure storage, r
 * **Microcontroller**: Espressif ESP32-S3 (Dual-Core Xtensa LX7 up to 240 MHz with integrated Flash and PSRAM).
 * **Display**: 2.8-inch IPS TFT LCD, 240x320 resolution, driven by an ST7789 controller over SPI at 80 MHz.
 * **Touch Digitizer**: CST328 capacitive touch controller over a dedicated I2C interface (Wire1 bus) supporting continuous gestures and multi-region taps.
-* **Real-Time Clock (RTC)**: Dedicated PCF85063 chip on the primary I2C interface (Wire bus) with battery backup, keeping the configured date and time independent of the host MCU.
+* **Real-Time Clock (RTC)**: Dedicated PCF85063 chip on the primary I2C interface (Wire bus). Requires an external backup battery to retain the date and time while the device is powered off and support TOTP across power cycles.
+* **Battery and Enclosure**: Main 3.7 V LiPo battery in the **523450** format. The enclosure is designed for this format; RTC backup uses a separate external battery.
 * **Inertial Measurement Unit (IMU)**: QMI8658C 6-axis accelerometer and gyroscope over I2C (Wire bus) for real-time dynamic motion and tilt monitoring.
 * **Removable Storage**: MicroSD card slot wired in native 1-bit SD_MMC mode for high-speed transfers and electrical isolation.
 * **Haptic Feedback**: Coreless ERM vibration motor driven by an onboard transistor to provide physical feedback on keypad taps and system confirmations.
@@ -102,6 +103,7 @@ The device directly types passwords and credentials into any connected PC, Mac, 
 * **Standard Compliance**: Fully compliant with RFC 6238 (HMAC-SHA1, 6-digit tokens, 30-second validity window), drop-in compatible with Google Authenticator and Microsoft Authenticator.
 * **Network-Independent Clock**:
   * Token calculations use the PCF85063 RTC and the configured time-zone offset.
+  * An external RTC backup battery is required to retain the date and time while the device is powered off.
 * **Dynamic On-Screen Timer**:
   * Real-time visual countdown wheel and numerical display tracking seconds remaining before token regeneration.
 * **Automated Typing**:
@@ -179,6 +181,7 @@ Onboarding presents the following screens:
 - Manual day, month and year adjustment from the date screen in Settings.
 - Hour and minute adjustment and 12-hour or 24-hour format selection.
 - PCF85063 clock and status-bar time display.
+- External RTC backup battery, required to retain the date and time and support TOTP across power cycles.
 - Time-zone offsets from UTC−12 to UTC+14 in 30-minute steps.
 - Device time for TOTP and elapsed time for Lost mode.
 
