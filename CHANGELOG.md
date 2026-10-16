@@ -4,6 +4,8 @@
 
 ### Español
 
+Compilación y pruebas de regresión completadas. Las correcciones de esta versión están pendientes de validación en el dispositivo; la causa exacta de la demora inicial de la microSD sigue sin confirmarse.
+
 - **Teclado deslizante:** los cambios de panel se ejecutan al soltar la tecla; se cancelan las animaciones anteriores para evitar el regreso involuntario a símbolos.
 - **T9:** tecla **OK** visible que confirma el texto y conserva el último carácter pendiente, en lugar de insertar un salto de línea.
 - **MicroSD:** montaje y limpieza de arranque en segundo plano, después de mostrar la pantalla de acceso. La tarjeta queda disponible al terminar la inicialización; se conserva el contenido de `/import`.
@@ -11,6 +13,8 @@
 - **Licencias:** textos de licencia de Inter y Material Symbols incluidos con las fuentes convertidas.
 
 ### English
+
+Compilation and regression tests completed. This version's fixes are pending validation on the device; the exact cause of the initial microSD delay remains unconfirmed.
 
 - **Sliding keyboard:** panel changes run on release; previous animations are cancelled to prevent an unintended return to symbols.
 - **T9:** a visible **OK** key confirms the text and retains the pending character instead of inserting a newline.
