@@ -115,7 +115,7 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 ### Capturas y recursos del proyecto
 
 - Capturas **BMP en microSD** mediante los comandos serie `shot`, `shot2` y `shot3`.
-- Código fuente, manuales, whitepaper, galería de renders, pantallas de UI y carcasa editable en Blender.
+- Código fuente, manuales, whitepaper, galería de renders, pantallas de UI y [archivos de la carcasa](hardware/README.md): fuente editable en Blender y cuatro piezas STL para impresión 3D.
 
 Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 
@@ -199,6 +199,7 @@ docs/reference/             Manuales y whitepaper (DOCX/PDF)
 assets/renders/             Renders del dispositivo
 assets/ui/                  Referencias de interfaz en alta resolución
 hardware/CASE.blend         Fuente Blender de la carcasa
+hardware/STL/               Piezas para impresión 3D: BUTTON, COVER, FRAME y PLATE
 FEATURES.es.md              Funciones en español
 FEATURES.md                 Funciones en inglés
 LICENSE                     Licencia MIT

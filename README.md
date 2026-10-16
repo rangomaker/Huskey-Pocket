@@ -115,7 +115,7 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 ### Screenshots and project resources
 
 - **BMP screenshots on microSD** through the serial commands `shot`, `shot2` and `shot3`.
-- Source code, manuals, whitepaper, render gallery, UI screens and editable Blender enclosure.
+- Source code, manuals, whitepaper, render gallery, UI screens and [enclosure files](hardware/README.md): editable Blender source and four STL parts for 3D printing.
 
 See [FEATURES.md](FEATURES.md) for the module breakdown.
 
@@ -199,6 +199,7 @@ docs/reference/             Manuals and whitepaper (DOCX/PDF)
 assets/renders/             Device renders
 assets/ui/                  High-resolution UI references
 hardware/CASE.blend         Blender enclosure source
+hardware/STL/               3D printing parts: BUTTON, COVER, FRAME and PLATE
 FEATURES.es.md              Spanish feature description
 FEATURES.md                 English feature description
 LICENSE                     MIT License

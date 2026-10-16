@@ -20,6 +20,8 @@ Renders del dispositivo y pantallas de la interfaz. / Device renders and interfa
 
 [Fuente Blender de la carcasa / Blender enclosure source](../hardware/CASE.blend)
 
+[Piezas STL para impresión 3D / STL parts for 3D printing](../hardware/README.md): BUTTON, COVER, FRAME y / and PLATE.
+
 ## Interfaz / Interface
 
 Temas claro y oscuro. / Light and dark themes.

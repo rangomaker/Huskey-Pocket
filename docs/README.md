@@ -24,7 +24,7 @@
 
 ## Diseño y recursos / Design and assets
 
-- [Carcasa en Blender / Blender enclosure](../hardware/CASE.blend).
+- [Carcasa e impresión 3D / Enclosure and 3D printing](../hardware/README.md): fuente Blender y piezas STL / Blender source and STL parts.
 - [Renders](../assets/renders/) y [referencias de UI / UI references](../assets/ui/).
 - [Licencia del proyecto / Project license](../LICENSE).
 - [Recursos de terceros / Third-party resources](../THIRD_PARTY_NOTICES.md).
