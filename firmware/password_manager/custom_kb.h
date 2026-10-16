@@ -132,10 +132,12 @@ static lv_obj_t* _ckb_make_row(lv_obj_t* parent, const CKBKey* keys, int n) {
         lv_obj_clear_flag(lbl, LV_OBJ_FLAG_CLICKABLE);
         lv_obj_set_user_data(btn, (void*)(intptr_t)keys[i].act);
         lv_obj_add_event_cb(btn, [](lv_event_t* e) {
-            vibro_pulse();
             lv_obj_t* b  = (lv_obj_t*)lv_event_get_target(e);
             int act      = (int)(intptr_t)lv_obj_get_user_data(b);
-            if (act != 2) _ckb_flash(b);
+            lv_event_code_t code = lv_event_get_code(e);
+            if (act == 1 ? code != LV_EVENT_PRESSED : code != LV_EVENT_CLICKED) return;
+            vibro_pulse();
+            if (act != 2 && act != 3 && (act < 5 || act > 10)) _ckb_flash(b);
             lv_obj_t* lb = lv_obj_get_child(b, 0);
             const char* t = lv_label_get_text(lb);
             switch (act) {
@@ -158,7 +160,7 @@ static lv_obj_t* _ckb_make_row(lv_obj_t* parent, const CKBKey* keys, int n) {
                 case 11: _ckb_add(","); break;
                 case 12: _ckb_add("."); break;
             }
-        }, LV_EVENT_PRESSED, nullptr);
+        }, LV_EVENT_ALL, nullptr);
         lv_obj_add_event_cb(btn, [](lv_event_t* e) {
             int act = (int)(intptr_t)lv_obj_get_user_data((lv_obj_t*)lv_event_get_target(e));
             if (act == 1 && _ckb_ta) { vibro_pulse(); lv_textarea_del_char(_ckb_ta); }
@@ -297,7 +299,10 @@ static void _ckb_rebuild_letters() {
 
 // ── Navegar entre slides ──────────────────────────────────────
 static void _ckb_go(int slide, bool anim) {
-    if (slide < 0 || slide > 5) return;
+    if (slide < 0 || slide > 5 || !_ckb_cont) return;
+
+    // Una animación anterior no debe devolver el contenedor al modo previo.
+    lv_anim_del(_ckb_cont, (lv_anim_exec_xcb_t)lv_obj_set_x);
 
     // Determinar el par de slides del modo actual y nuevo
     int cur_pair = (_ckb_slide / 2) * 2; // 0, 2, o 4

@@ -126,6 +126,8 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 
 See [FEATURES.md](FEATURES.md) for the module breakdown.
 
+[Version 1.0.1 changes](CHANGELOG.md).
+
 ## Getting started
 
 1. Browse the [documentation index](docs/README.md) and user manual.

@@ -6,6 +6,8 @@
 
 #include <SD_MMC.h>
 #include <FS.h>
+#include <esp_random.h>
+#include <atomic>
 
 #define SD_CLK  14
 #define SD_CMD  17
@@ -14,11 +16,13 @@
 #define SD_D2   -1 // modo 1-bit
 #define SD_D3   21
 
-static bool _sd_ready = false;
+static std::atomic<bool> _sd_ready{false};
+static std::atomic<bool> _sd_initializing{false};
+static bool _sd_cleanup_pending = false;
+static bool _sd_prepare(bool cleanup);
 
 // ── Inicializar SD ────────────────────────────────────────────
-bool sd_begin() {
-    if (_sd_ready) return true;
+static bool _sd_mount() {
     // D3 en HIGH durante power-up para modo nativo SD
     pinMode(SD_D3, OUTPUT);
     digitalWrite(SD_D3, HIGH);
@@ -32,13 +36,21 @@ bool sd_begin() {
         Serial.println("[SD] Error: begin falló — sin tarjeta?");
         return false;
     }
-    _sd_ready = true;
     uint64_t size = SD_MMC.cardSize() / (1024 * 1024);
     Serial.printf("[SD] OK — %.0llu MB\n", size);
     return true;
 }
 
+bool sd_begin() {
+    if (_sd_ready.load()) return true;
+    if (_sd_initializing.exchange(true)) return false;
+    bool ok = _sd_prepare(_sd_cleanup_pending);
+    _sd_initializing.store(false);
+    return ok;
+}
+
 bool sd_is_ready() { return _sd_ready; }
+bool sd_is_initializing() { return _sd_initializing.load(); }
 
 // Desmonta la SD antes de Deep Sleep
 void sd_end() {
@@ -168,50 +180,64 @@ const char* sd_mime(const char* path) {
 
 // Crea /export y /import si no existen — llamar antes de escribir
 // o listar en cualquiera de las dos.
-void sd_ensure_io_dirs() {
-    if (!_sd_ready) return;
+static void _sd_ensure_io_dirs_mounted() {
     if (!SD_MMC.exists(SD_EXPORT_DIR)) SD_MMC.mkdir(SD_EXPORT_DIR);
     if (!SD_MMC.exists(SD_IMPORT_DIR)) SD_MMC.mkdir(SD_IMPORT_DIR);
 }
 
+void sd_ensure_io_dirs() {
+    if (_sd_ready.load()) _sd_ensure_io_dirs_mounted();
+}
+
 // ── Borrado seguro: sobrescritura con datos aleatorios antes de eliminar ──
-bool sd_secure_delete(const char* path) {
-    if (!_sd_ready) return false;
+static bool _sd_secure_delete_mounted(const char* path) {
     if (!SD_MMC.exists(path)) return true;
 
     // Abrir en "r+" para sobrescribir los sectores sin truncar el archivo a 0 bytes
     File f = SD_MMC.open(path, "r+");
-    if (!f) return false;
+    if (!f || f.isDirectory()) return false;
     size_t size = f.size();
 
     uint8_t buf[512];
     size_t remaining = size;
     while (remaining > 0) {
         size_t chunk = remaining < sizeof(buf) ? remaining : sizeof(buf);
-        for (size_t i = 0; i < chunk; i++) buf[i] = (uint8_t)esp_random();
-        f.write(buf, chunk);
+        esp_fill_random(buf, chunk);
+        if (f.write(buf, chunk) != chunk) {
+            f.close();
+            Serial.printf("[SD] Error al sobrescribir: %s\n", path);
+            return false;
+        }
         remaining -= chunk;
+        if (remaining > 0 && remaining % (16 * 1024) == 0) delay(1);
     }
     f.flush();
     f.close();
     return SD_MMC.remove(path);
 }
 
+bool sd_secure_delete(const char* path) {
+    return _sd_ready.load() && _sd_secure_delete_mounted(path);
+}
+
 // ── Limpieza de temporales al arranque ─────────────────────────
-void sd_cleanup_tmp() {
-    if (!_sd_ready) return;
-    sd_secure_delete("/tmp/import.csv");
-    sd_secure_delete("/tmp/export.csv");
-    sd_secure_delete("/tmp/hky_plain.csv");
+static void _sd_cleanup_tmp_mounted() {
+    _sd_secure_delete_mounted("/tmp/import.csv");
+    _sd_secure_delete_mounted("/tmp/export.csv");
+    _sd_secure_delete_mounted("/tmp/hky_plain.csv");
     Serial.println("[SD] Temporales limpiados (borrado seguro)");
+}
+
+void sd_cleanup_tmp() {
+    if (_sd_ready.load()) _sd_cleanup_tmp_mounted();
 }
 
 // Borrado seguro de TODO el contenido de /export (no la carpeta en
 // sí). Se usa al arrancar normal (por si quedó algo de una sesión
 // de modo USB interrumpida) y desde el botón "Borrar export(s)" —
 // nunca toca /import, que es responsabilidad exclusiva del usuario.
-void sd_secure_delete_export_dir() {
-    if (!_sd_ready || !SD_MMC.exists(SD_EXPORT_DIR)) return;
+static void _sd_secure_delete_export_dir_mounted() {
+    if (!SD_MMC.exists(SD_EXPORT_DIR)) return;
     File dir = SD_MMC.open(SD_EXPORT_DIR);
     if (!dir || !dir.isDirectory()) return;
 
@@ -232,7 +258,44 @@ void sd_secure_delete_export_dir() {
         f = dir.openNextFile();
     }
     dir.close();
-    for (int i = 0; i < count; i++) sd_secure_delete(paths[i]);
+    for (int i = 0; i < count; i++) _sd_secure_delete_mounted(paths[i]);
+}
+
+void sd_secure_delete_export_dir() {
+    if (_sd_ready.load()) _sd_secure_delete_export_dir_mounted();
+}
+
+static bool _sd_prepare(bool cleanup) {
+    uint32_t started = millis();
+    Serial.println("[SD] Montando tarjeta...");
+    if (!_sd_mount()) return false;
+    Serial.printf("[SD] Montaje terminado (%lu ms)\n", millis() - started);
+    if (cleanup) {
+        started = millis();
+        _sd_ensure_io_dirs_mounted();
+        _sd_cleanup_tmp_mounted();
+        _sd_secure_delete_export_dir_mounted();
+        _sd_cleanup_pending = false;
+        Serial.printf("[SD] Limpieza de arranque terminada (%lu ms)\n", millis() - started);
+    }
+    // Publicar la tarjeta solo cuando terminó la limpieza: la UI no debe
+    // importar/exportar ni capturar mientras la tarea modifica archivos.
+    _sd_ready.store(true);
+    return true;
+}
+
+void sd_begin_startup_async() {
+    if (_sd_ready.load() || _sd_initializing.exchange(true)) return;
+    _sd_cleanup_pending = true;
+    BaseType_t created = xTaskCreate([](void*) {
+        _sd_prepare(true);
+        _sd_initializing.store(false);
+        vTaskDelete(nullptr);
+    }, "sd_startup", 8192, nullptr, 1, nullptr);
+    if (created != pdPASS) {
+        _sd_initializing.store(false);
+        Serial.println("[SD] Sin memoria para inicializar en segundo plano; se reintentará al abrir la SD");
+    }
 }
 
 

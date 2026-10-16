@@ -126,6 +126,8 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 
 Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 
+[Cambios de la versión 1.0.1](CHANGELOG.md).
+
 ## Empieza aquí
 
 1. Consulta el [índice de documentación](docs/README.md) y el manual de usuario.

@@ -5,7 +5,7 @@
 //  Touch: CST328 (Wire1) | RTC: PCF85063 (Wire)
 // =============================================================
 
-#define KEYVAULT_VERSION "1.0.0"
+#define KEYVAULT_VERSION "1.0.1"
 #define KEYVAULT_BUILD   "2026"
 
 #include "ble_keyboard_manager.h"
@@ -216,14 +216,6 @@ void setup() {
         return;
     }
 
-    { uint32_t _sd_t0 = millis();
-      if (sd_begin()) {
-          sd_ensure_io_dirs();
-          sd_secure_delete_export_dir();
-      }
-      Serial.printf("[APP] sd_begin+cleanup export OK (%lu ms desde boot, tomó %lu ms)\n", millis() - _boot_t0, millis() - _sd_t0);
-    }
-
     if (vault_get_kb_mode() == 1) {
         Serial.println("[APP] Modo teclado: Bluetooth (se activa al desbloquear)");
         // ble_kb_begin() se inicializa en on_unlock() para evitar advertising mientras esté bloqueado.
@@ -231,12 +223,6 @@ void setup() {
     } else {
         Serial.println("[APP] Modo teclado: USB");
         usb_kb_begin();
-    }
-
-    { uint32_t _sdc_t0 = millis();
-      sd_begin();
-      sd_cleanup_tmp();
-      Serial.printf("[APP] sd_cleanup_tmp OK (%lu ms desde boot, tomó %lu ms)\n", millis() - _boot_t0, millis() - _sdc_t0);
     }
 
     // ── LVGL ─────────────────────────────────────────────────
@@ -278,6 +264,9 @@ void setup() {
     Set_Backlight(100);
 
     Serial.println("[APP] Listo");
+    // El montaje y la limpieza de la microSD no bloquean la pantalla de acceso.
+    // /import se conserva; la tarjeta no se publica hasta terminar la limpieza.
+    sd_begin_startup_async();
 }
 
 // ── Loop ──────────────────────────────────────────────────────

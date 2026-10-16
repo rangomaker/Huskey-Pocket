@@ -118,6 +118,16 @@ arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashM
 
 Firmware output is written to `build/`.
 
+## Device checks
+
+After uploading firmware **1.0.1**, check:
+
+1. **Sliding keyboard:** switch repeatedly between letters and symbols, including while a panel transition finishes. Returning to letters must leave the keyboard in letter mode.
+2. **T9:** enter a character and press **OK** before the multi-tap timeout. The character must be retained and the field confirmed.
+3. **MicroSD:** copy a CSV into `/import` and restart. The access screen appears before SD mounting and cleanup; the CSV is retained and becomes available for import when initialization finishes.
+
+The serial monitor at **115200 baud** reports separate `[SD] Montaje terminado` and `[SD] Limpieza de arranque terminada` messages, including elapsed milliseconds.
+
 ## Privacy notice
 
 Before distributing firmware, complete [privacy_notice.h](../firmware/password_manager/privacy_notice.h) using [PRIVACY.md](PRIVACY.md). The repository includes a visible notice-not-configured message in both languages.

@@ -26,7 +26,7 @@ static bool        _t9_sym    = false;
 
 // Layout 4x4 (índices 0-15)
 // 0=1/.com  1=2/abc  2=3/def  3=⌫
-// 4=4/ghi   5=5/jkl  6=6/mno  7=↵
+// 4=4/ghi   5=5/jkl  6=6/mno  7=OK
 // 8=7/pqrs  9=8/tuv  10=9/wxyz 11=⇧
 // 12=SIM    13=0/─   14=.,    15=@
 
@@ -120,6 +120,18 @@ static void _t9_ev(lv_event_t* e) {
     int ki=(int)(intptr_t)lv_event_get_user_data(e);
     lv_obj_t* btn=(lv_obj_t*)lv_event_get_target(e);
 
+    if(ki==7) {
+        if(code==LV_EVENT_CLICKED) {
+            if(_t9_tmr){lv_timer_del(_t9_tmr);_t9_tmr=nullptr;}
+            _t9_ins=false; _t9_pkey=-1; _t9_pidx=0;
+            _t9_press_ins_n=0; _t9_longfired=false;
+            vibro_pulse();
+            if(_t9_ok_cb) _t9_ok_cb();
+            else if(_t9_ta&&lv_obj_is_valid(_t9_ta)) lv_event_send(_t9_ta,LV_EVENT_READY,nullptr);
+        }
+        return;
+    }
+
     if(code==LV_EVENT_LONG_PRESSED_REPEAT) {
         if(ki==3&&_t9_ta&&lv_obj_is_valid(_t9_ta)) lv_textarea_del_char(_t9_ta);
         return;
@@ -150,11 +162,6 @@ static void _t9_ev(lv_event_t* e) {
             if(_t9_ins&&_t9_ta&&lv_obj_is_valid(_t9_ta)) lv_textarea_del_char(_t9_ta);
             _t9_ins=false; _t9_pkey=-1; _t9_pidx=0;
         } else { if(_t9_ta&&lv_obj_is_valid(_t9_ta)) lv_textarea_del_char(_t9_ta); }
-        return;
-    }
-    if(ki==7){  // ↵
-        if(_t9_pkey>=0){if(_t9_tmr){lv_timer_del(_t9_tmr);_t9_tmr=nullptr;} _t9_ins=false;_t9_pkey=-1;_t9_pidx=0;}
-        if(_t9_ta&&lv_obj_is_valid(_t9_ta)) lv_textarea_add_text(_t9_ta,"\n");
         return;
     }
     if(ki==11){ // ⇧ — 0=minúsculas, 1=próxima letra mayúscula (auto-revert
@@ -266,7 +273,7 @@ static lv_obj_t* custom_kb_t9_create(lv_obj_t* parent, lv_obj_t* ta, void(*ok_cb
         lv_obj_clear_flag(btn,LV_OBJ_FLAG_SCROLLABLE);
         lv_obj_set_size(btn,KW,KH);
         lv_obj_set_pos(btn,x,y);
-        lv_obj_set_style_bg_color(btn,isAction?lv_color_hex(0x3A3A3C):lv_color_hex(0x2C2C2E),0);
+        lv_obj_set_style_bg_color(btn,i==7?C_ACCENT:isAction?lv_color_hex(0x3A3A3C):lv_color_hex(0x2C2C2E),0);
         lv_obj_set_style_bg_opa(btn,LV_OPA_COVER,0);
         lv_obj_set_style_border_width(btn,0,0);
         lv_obj_set_style_radius(btn,5,0);
@@ -275,14 +282,15 @@ static lv_obj_t* custom_kb_t9_create(lv_obj_t* parent, lv_obj_t* ta, void(*ok_cb
         if(col==3||i==12||i==15){
             lv_obj_t* lbl=lv_label_create(btn);
             if(i==3) lv_label_set_text(lbl,ICO_BACKSPACE);
-            else if(i==7) lv_label_set_text(lbl,ICO_CHECK);
+            else if(i==7) lv_label_set_text(lbl,"OK");
             else if(i==11) lv_label_set_text(lbl,ICO_CAPSLOCK);
             else if(i==12) lv_label_set_text(lbl,"!@#");
             else lv_label_set_text(lbl,T9_LETTERS[i]); // @ o .,
-            bool useIcon=(i==3||i==7||i==11);
+            bool useIcon=(i==3||i==11);
             lv_obj_set_style_text_font(lbl,useIcon?FONT_ICON:FONT_MD,0);
-            lv_obj_set_style_text_color(lbl,lv_color_hex(0xBBBBBB),0);
+            lv_obj_set_style_text_color(lbl,lv_color_hex(i==7?0xFFFFFF:0xBBBBBB),0);
             lv_obj_center(lbl);
+            lv_obj_clear_flag(lbl,LV_OBJ_FLAG_CLICKABLE);
         } else if(i==13){
             lv_obj_t* line=lv_obj_create(btn);
             lv_obj_set_size(line,KW-12,2);
@@ -320,6 +328,7 @@ static lv_obj_t* custom_kb_t9_create(lv_obj_t* parent, lv_obj_t* ta, void(*ok_cb
         }
 
         lv_obj_add_event_cb(btn,_t9_ev,LV_EVENT_PRESSED,(void*)(intptr_t)i);
+        if(i==7) lv_obj_add_event_cb(btn,_t9_ev,LV_EVENT_CLICKED,(void*)(intptr_t)i);
         lv_obj_add_event_cb(btn,_t9_ev,LV_EVENT_LONG_PRESSED,(void*)(intptr_t)i);
         lv_obj_add_event_cb(btn,_t9_ev,LV_EVENT_LONG_PRESSED_REPEAT,(void*)(intptr_t)i);
     }

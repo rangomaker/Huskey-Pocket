@@ -118,6 +118,16 @@ arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashM
 
 El firmware se genera en `build/`.
 
+## Comprobación en el dispositivo
+
+Después de cargar el firmware **1.0.1**, comprueba:
+
+1. **Teclado deslizante:** alterna varias veces entre letras y símbolos, incluso mientras termina un cambio de panel. Al volver a letras, el teclado debe permanecer en letras.
+2. **T9:** escribe un carácter y pulsa **OK** antes de que termine la pulsación múltiple. Debe conservar el carácter y confirmar el campo.
+3. **MicroSD:** copia un CSV en `/import` y reinicia. La pantalla de acceso aparece antes del montaje y la limpieza de la SD; el CSV se conserva y queda disponible para importarlo cuando termina la inicialización.
+
+El monitor serie a **115200 baudios** muestra por separado `[SD] Montaje terminado` y `[SD] Limpieza de arranque terminada`, con su duración en milisegundos.
+
 ## Aviso de privacidad
 
 Antes de distribuir tu firmware, completa [privacy_notice.h](../firmware/password_manager/privacy_notice.h) siguiendo [PRIVACY.es.md](PRIVACY.es.md). El repositorio incluye un mensaje visible de aviso pendiente de configurar en ambos idiomas.

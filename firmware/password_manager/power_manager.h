@@ -73,8 +73,8 @@ void power_restart() {
 
 // Deep Sleep con wake-up por botón físico (GPIO6)
 void power_deep_sleep() {
-    if (vault_is_op_busy()) {
-        Serial.println("[PWR] Deep Sleep pospuesto: operación del vault en curso");
+    if (vault_is_op_busy() || sd_is_initializing()) {
+        Serial.println("[PWR] Deep Sleep pospuesto: operación del vault o microSD en curso");
         return;
     }
     Serial.println("[PWR] Entrando a Deep Sleep...");
