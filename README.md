@@ -128,6 +128,14 @@ See [FEATURES.md](FEATURES.md) for the module breakdown.
 
 [Version 1.0.1 changes](CHANGELOG.md).
 
+## Testing and reviews
+
+Earlier in development, **two AI-assisted memory reviews** focused on detecting leaks and memory management issues. **All 16 tests passed**. These results apply to the code evaluated at that time.
+
+The device is built and working, with physically tested printing and enclosure fit. Firmware **1.0.1** fixes compile and pass regression tests; validation on the device remains pending.
+
+**Huskey Pocket has not undergone a security audit.** Memory reviews and functional tests do not certify the project's security.
+
 ## Getting started
 
 1. Browse the [documentation index](docs/README.md) and user manual.

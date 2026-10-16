@@ -128,6 +128,14 @@ Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.
 
 [Cambios de la versión 1.0.1](CHANGELOG.md).
 
+## Pruebas y revisiones
+
+En una etapa anterior del desarrollo se realizaron **dos revisiones de memoria asistidas por IA**, enfocadas en detectar fugas y problemas de gestión de memoria. Las **16 pruebas ejecutadas se completaron satisfactoriamente**. Estos resultados corresponden al código evaluado en aquel momento.
+
+El dispositivo está construido y funcionando, con impresión y encaje de la carcasa probados físicamente. Las correcciones del firmware **1.0.1** compilan y pasan las pruebas de regresión; su validación en el dispositivo sigue pendiente.
+
+**Huskey Pocket no ha recibido una auditoría de seguridad.** Las revisiones de memoria y las pruebas funcionales no certifican la seguridad del proyecto.
+
 ## Empieza aquí
 
 1. Consulta el [índice de documentación](docs/README.md) y el manual de usuario.

@@ -14,6 +14,10 @@
 
 ## Manuales / Manuals
 
+El [estado actual de pruebas y revisiones](../README.es.md#pruebas-y-revisiones) distingue las revisiones de memoria de una auditoría de seguridad. **El proyecto no ha recibido auditorías de seguridad**; las menciones a ellas en los manuales anteriores no deben interpretarse como una auditoría realizada.
+
+The [current testing and review status](../README.md#testing-and-reviews) distinguishes memory reviews from a security audit. **The project has not undergone a security audit**; references to security audits in earlier manuals should not be interpreted as evidence of a completed audit.
+
 | Archivo | Contenido |
 | --- | --- |
 | [Manual de usuario](reference/Huskey_Pocket_Manual_Usuario.docx) | Uso del dispositivo y sus funciones |
