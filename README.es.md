@@ -13,6 +13,8 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 
 [Fotos del dispositivo real, renders y pantallas](docs/GALLERY.md).
 
+**Sitio web del producto:** [Huskey Pocket](https://rangomaker.com/productos/huskey/).
+
 **Versiones:** las fotografías, renders e imágenes de la interfaz muestran la versión **1.0.0**. El código fuente de este repositorio corresponde al firmware **1.0.1**.
 
 > **Proyecto de referencia, sin mantenimiento activo.** Se comparte bajo licencia MIT, tal cual, sin soporte técnico, correcciones ni nuevas funciones garantizadas. Puedes hacer un fork y continuar su desarrollo.
@@ -215,7 +217,7 @@ Mantén [lv_conf.h](firmware/password_manager/lv_conf.h) junto al sketch: config
 ```text
 firmware/password_manager/   Sketch Arduino, módulos, fuentes y lv_conf.h
 docs/                       Guías e índice
-docs/reference/             Manuales y whitepaper (DOCX/PDF)
+docs/reference/             Manuales y whitepaper (PDF, EN/ES)
 assets/renders/             Renders del dispositivo
 assets/photos/              Fotografías del dispositivo real armado y funcionando
 assets/ui/                  Referencias de interfaz en alta resolución

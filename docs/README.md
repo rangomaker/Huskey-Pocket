@@ -18,13 +18,12 @@ Los manuales de referencia en español e inglés se actualizaron para reflejar l
 
 The reference manuals are available in Spanish and English and were updated to reflect firmware 1.0.1, the hardware, and the known test status. Huskey Pocket has not undergone a security audit; AI-assisted memory reviews are not a security audit. See the [testing status](../README.md#testing-and-reviews).
 
-| Documento | Español | English |
+| Documento | Español (PDF) | English (PDF) |
 | --- | --- | --- |
-| Manual de usuario / User manual | [DOCX](reference/Huskey_Pocket_Manual_Usuario.docx) | [DOCX](reference/Huskey_Pocket_Manual_Usuario_EN.docx) |
-| Documentación técnica del firmware / Firmware technical documentation | [PDF](reference/Huskey_Pocket_Documentacion_Tecnica.pdf) · [DOCX](reference/Huskey_Pocket_Documentacion_Tecnica.docx) | [PDF](reference/Huskey_Pocket_Documentacion_Tecnica_EN.pdf) · [DOCX](reference/Huskey_Pocket_Documentacion_Tecnica_EN.docx) |
-| Whitepaper, revisión 4 / Whitepaper, revision 4 | [DOCX](reference/Huskey_Pocket_Whitepaper_Rev4.docx) | [DOCX](reference/Huskey_Pocket_Whitepaper_Rev4_EN.docx) |
-| Manual y documentación técnica / Operation and technical reference | [DOCX](reference/Manual_y_Documentacion_Tecnica_HuskeyPocket.docx) | [DOCX](reference/Manual_y_Documentacion_Tecnica_HuskeyPocket_EN.docx) |
-| Funciones / Features | [DOCX](reference/Funciones.docx) | [DOCX](reference/Funciones_EN.docx) |
+| Manual de usuario / User manual | [Abrir PDF](reference/ES/Huskey_Pocket_Manual_Usuario_ES.pdf) | [Open PDF](reference/EN/Huskey_Pocket_User_Manual_EN.pdf) |
+| Documentación técnica del firmware / Firmware technical documentation | [Abrir PDF](reference/ES/Huskey_Pocket_Documentacion_Tecnica_ES.pdf) | [Open PDF](reference/EN/Huskey_Pocket_Technical_Documentation_EN.pdf) |
+| Whitepaper, revisión 4 / Whitepaper, revision 4 | [Abrir PDF](reference/ES/Huskey_Pocket_Whitepaper_Rev4_ES.pdf) | [Open PDF](reference/EN/Huskey_Pocket_Whitepaper_Rev4_EN.pdf) |
+| Funciones / Features | [Abrir PDF](reference/ES/Huskey_Pocket_Funciones_ES.pdf) | [Open PDF](reference/EN/Huskey_Pocket_Features_EN.pdf) |
 
 ## Diseño y recursos / Design and assets
 
