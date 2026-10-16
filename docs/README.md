@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | Presentación | [README.es.md](../README.es.md) | [README.md](../README.md) |
 | Compilación | [BUILD.es.md](BUILD.es.md) | [BUILD.md](BUILD.md) |
+| Librerías y configuración | [Dependencias](BUILD.es.md) | [Dependencies](BUILD.md) |
 | Aviso por implementación | [PRIVACY.es.md](PRIVACY.es.md) | [PRIVACY.md](PRIVACY.md) |
 | Funcionalidades | [FEATURES.es.md](../FEATURES.es.md) | [FEATURES.md](../FEATURES.md) |
 | Renders y UI | [Galería / Gallery](GALLERY.md) | [Galería / Gallery](GALLERY.md) |

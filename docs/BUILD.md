@@ -2,26 +2,78 @@
 
 # Build the firmware
 
-## Dependencies
+## Board package
 
-Dependency versions:
+Install **esp32 by Espressif Systems 3.3.10** through Boards Manager. This package supplies the Arduino-ESP32 core, compiler and ESP-IDF APIs.
 
-| Component | Version |
+1. Open **File → Preferences** in Arduino IDE.
+2. Add this index under **Additional Boards Manager URLs**:
+
+   ```text
+   https://espressif.github.io/arduino-esp32/package_esp32_index.json
+   ```
+
+3. Open **Tools → Board → Boards Manager** and search for **esp32 by Espressif Systems**.
+4. Select and install version **3.3.10**.
+5. Select **ESP32S3 Dev Module**.
+
+[Espressif installation documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html).
+
+## External libraries
+
+Open Arduino IDE **Library Manager** and install:
+
+| Name | Author | Version | Purpose |
+| --- | --- | --- | --- |
+| [lvgl](https://github.com/lvgl/lvgl/tree/v8.3.6) | LVGL / kisvegabor | **8.3.6** | Screens, controls, themes, fonts, QR and snapshots |
+| [NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino/releases/tag/2.5.0) | h2zero | **2.5.0** | BLE HID keyboard, pairing and bonds |
+
+Use these versions to compile against the APIs used by this firmware.
+
+## ESP32 package libraries and APIs
+
+These components are installed with **Arduino-ESP32 3.3.10**:
+
+| Component | Headers or APIs | Huskey Pocket usage |
+| --- | --- | --- |
+| SPI | `SPI.h` | ST7789 display |
+| I²C | `Wire.h`, `Wire`, `Wire1` | CST328 touch, PCF85063 RTC and QMI8658C IMU |
+| Filesystems | `FS.h`, `LittleFS.h`, `SD_MMC.h` | Internal vault and microSD |
+| NVS | `Preferences.h` | Settings, counters and control values |
+| USB / TinyUSB | `USB.h`, `USBHID.h`, `USBMSC.h` | HID keyboard and USB storage mode |
+| mbedTLS | `aes.h`, `sha256.h`, `pkcs5.h`, `md.h` | AES-256-CBC, SHA, HMAC and PBKDF2 |
+| FreeRTOS | Tasks and timers | Key derivation and system execution |
+| ESP-IDF | Sleep, GPIO, eFuse and MAC | Power management and ESP32-S3 hardware functions |
+
+## Sketch drivers and modules
+
+The following files compile as part of the project:
+
+| Files | Purpose |
 | --- | --- |
-| Arduino-ESP32, package `esp32:esp32` | 3.3.10 |
-| LVGL, library `lvgl` | 8.3.6 |
-| NimBLE-Arduino | 2.5.0 |
+| `Display_ST7789.h/.cpp` | Display and backlight driver |
+| `Touch_CST328.h/.cpp` | Touch driver |
+| `rtc_manager.h` | PCF85063 RTC |
+| `snatch_lock.h` | QMI8658C IMU and Snatch Lock |
+| `inter_*.c`, `material_16*.c`, `fonts.h` | Fonts and glyphs |
+| `custom_kb.h`, `custom_kb_t9.h`, `kb_manager.h` | Touch keyboards |
+| `battery_manager.h`, `power_manager.h`, `vibro_manager.h` | Battery, power and vibration |
 
-Install the ESP32 package and both libraries in Arduino IDE, or use Arduino CLI:
+## LVGL configuration
 
-```powershell
-arduino-cli core install esp32:esp32@3.3.10
-arduino-cli lib install "lvgl@8.3.6" "NimBLE-Arduino@2.5.0"
-```
+Keep [lv_conf.h](../firmware/password_manager/lv_conf.h) inside `firmware/password_manager/`, beside the sketch. Its main options are:
 
-Use [lv_conf.h](../firmware/password_manager/lv_conf.h) to configure LVGL: RGB565 without byte swapping, a `millis()` tick source, QR, snapshots and interface fonts.
+| Option | Value | Purpose |
+| --- | --- | --- |
+| `LV_COLOR_DEPTH` | `16` | RGB565 color |
+| `LV_COLOR_16_SWAP` | `0` | Byte order used by the driver |
+| `LV_TICK_CUSTOM` | `1` | System time through `millis()` |
+| `LV_USE_USER_DATA` | `1` | Object and event user data |
+| `LV_USE_QRCODE` | `1` | QR code generation |
+| `LV_USE_SNAPSHOT` | `1` | Screenshots |
+| `LV_MEM_CUSTOM` | `1` | Allocation through `malloc`, `free` and `realloc` |
 
-Display, touch, RTC and IMU drivers, fonts and application modules are included. USB, SD_MMC, LittleFS, Preferences and mbedTLS come from Arduino-ESP32.
+Retain the fonts and remaining options in this file so LVGL modules and the sketch share the same configuration.
 
 ## Arduino IDE
 
@@ -44,7 +96,16 @@ The [partitions.csv](../firmware/password_manager/partitions.csv) table requires
 
 ## Arduino CLI
 
-From the repository root:
+Install the dependencies:
+
+```powershell
+arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+arduino-cli core install esp32:esp32@3.3.10 --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+arduino-cli lib update-index
+arduino-cli lib install "lvgl@8.3.6" "NimBLE-Arduino@2.5.0"
+```
+
+Compile from the repository root:
 
 ```powershell
 arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashMode=qio,PSRAM=opi,PartitionScheme=custom,USBMode=default,CDCOnBoot=cdc,UploadSpeed=921600,DebugLevel=none" --build-path build firmware/password_manager

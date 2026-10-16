@@ -28,7 +28,9 @@ The device functions as an offline cryptographic vault for the secure storage, r
 * **Encryption Algorithm**: AES-256-CBC implemented with mbedTLS. CBC does not provide authenticated encryption.
 * **Key Derivation**: Master encryption key derived from the user PIN using PBKDF2-HMAC-SHA256 with 50,000 iterations and a unique hardware-generated salt (`esp_random`). Encrypted `.hky` backups use 100,000 iterations with a separate backup password.
 * **PIN Authentication**: Master access protected by a 6-digit numerical PIN (`PIN_DIGITS` in `vault.h`). PIN verification utilizes constant-time memory comparisons to prevent timing side-channel attacks.
-* **Brute-Force Mitigation**: Exponential backoff penalties and progressive lockouts triggered after repeated failed PIN entries.
+* **PIN Attempts**: A persistent NVS counter records failed attempts. The fourth failure displays a warning; the fifth consecutive failure resets the device and erases the vault.
+* **Decoy PIN**: Opens an empty vault without access to real records. Saves are simulated, and a configurable factory-reset timer erases the vault.
+* **Factory Reset Protection (FRP)**: The previous PIN is required after a reset. Three failed FRP checks activate the firmware's permanent lockout.
 * **Secure Storage**: Encrypted entries reside in the on-chip LittleFS flash partition, which provides wear-leveling and power-failure resilience. System parameters are kept in NVS (Non-Volatile Storage).
 * **Secure Wipe**: Factory reset clears credentials and key material. Flash wear leveling can retain physical copies; erasure is not a guarantee against laboratory recovery.
 
@@ -41,9 +43,9 @@ The device functions as an offline cryptographic vault for the secure storage, r
   * If a sudden, correlated spike in acceleration and rotation is detected (characteristic of a physical snatch or grab), the firmware calls the vault lock routine and enters Deep Sleep. End-to-end latency must be measured on the target hardware.
   * Sensitivity levels: Disabled, Low, Medium, and High.
 * **Dead Man's Switch**:
-  * Configurable inactivity timer (days, weeks, or months).
-  * If the device is not authenticated within the specified interval, automated defensive policies trigger (permanent lockout or cryptographic credential wipe).
-* **Automatic Screen Lock**: Idle timer that extinguishes the backlight and locks the vault when no touch activity is detected within a set duration (1 to 10 minutes).
+  * Select 7, 14, 30, 60, 90 or 180 days, or disable the feature.
+  * At startup, if the interval has elapsed without a real-PIN unlock, a factory reset erases the vault. Decoy-PIN sessions do not renew the interval.
+* **Automatic Screen Lock**: Select 30 seconds, 1, 2 or 5 minutes, or disable it. The idle timer turns off the screen and locks access.
 
 ---
 
@@ -103,7 +105,7 @@ The device directly types passwords and credentials into any connected PC, Mac, 
 * **Length Control**: Configurable between 8 and 32 characters via an on-screen slider.
 * **Character Set Selectors**:
   * Uppercase letters (A-Z).
-  * Lowercase letters (a-z).
+  * Lowercase letters (a-z), always included as the base character set.
   * Numbers (0-9).
   * Special symbols and punctuation.
 * **Ambiguity Filter**: Optional toggle to exclude visually confusing characters (such as `1`, `l`, `I`, `0`, and `O`).
@@ -159,3 +161,21 @@ The device directly types passwords and credentials into any connected PC, Mac, 
 ## 11. Implementation-specific privacy notice
 
 The implementer is responsible for writing, publishing and maintaining their own notice. Spanish and English text in `firmware/password_manager/privacy_notice.h` is shared by onboarding and Settings. The default message explicitly states that the notice has not been configured; see [PRIVACY.md](docs/PRIVACY.md).
+
+## 12. Libraries and tools
+
+| Component | Version | Purpose |
+| --- | --- | --- |
+| Arduino-ESP32 (`esp32:esp32`) | 3.3.10 | Board core, compiler and ESP-IDF APIs |
+| LVGL (`lvgl`) | 8.3.6 | Interface, controls, QR and screenshots |
+| NimBLE-Arduino | 2.5.0 | BLE HID keyboard and pairing |
+
+Arduino-ESP32 supplies `SPI`, `Wire`, `FS`, `LittleFS`, `SD_MMC`, `Preferences`, `USB`, `USBHID`, `USBMSC`, mbedTLS and FreeRTOS. ST7789, CST328, PCF85063 and QMI8658C drivers compile from the sketch files.
+
+`lv_conf.h` enables 16-bit color, a `millis()` tick source, QR, snapshots, user data and interface fonts. See [dependency installation](docs/BUILD.md) for steps and build settings.
+
+## 13. Power and screenshots
+
+* Lock, restart and shutdown controls, backlight management and Deep Sleep.
+* BMP screenshots on microSD through the serial port: `shot` (original size), `shot2` (2x scale) and `shot3` (3x scale).
+* Screenshots are saved under `/export/` on the microSD.

@@ -28,7 +28,9 @@ El dispositivo opera como una boveda fisica offline para el almacenamiento, cons
 * Algoritmo de Cifrado: AES-256-CBC implementado con mbedTLS. CBC no proporciona cifrado autenticado.
 * Derivacion de Claves: Derivacion de clave maestra a partir del PIN del usuario empleando PBKDF2-HMAC-SHA256 con 50,000 iteraciones y sal (salt) criptografica unica por dispositivo. Los respaldos `.hky` usan 100,000 iteraciones con una contrasena independiente.
 * Autenticacion por PIN: Bloqueo de acceso mediante codigo numerico de 6 digitos (`PIN_DIGITS` en `vault.h`) con validacion en tiempo constante para mitigar ataques de temporizacion.
-* Proteccion contra Fuerza Bruta: Sistema de penalizacion exponencial y bloqueo progresivo ante intentos fallidos de introduccion del PIN.
+* Intentos de PIN: Contador persistente en NVS. El cuarto fallo muestra una advertencia; el quinto fallo consecutivo restablece el dispositivo y elimina la boveda.
+* PIN Senuelo: Abre una boveda vacia sin acceso a los registros reales. Sus guardados son simulados y activa un temporizador configurable de restablecimiento que elimina la boveda.
+* Factory Reset Protection (FRP): Tras el restablecimiento se solicita el PIN anterior. Tres fallos en esta comprobacion activan el bloqueo permanente del firmware.
 * Almacenamiento Local Seguro: Las entradas cifradas residen en el sistema de archivos flash interno LittleFS y registros de configuracion en NVS (Non-Volatile Storage).
 * Borrado Seguro (Secure Wipe): El restablecimiento elimina credenciales y material de claves. La nivelacion de desgaste de Flash puede conservar copias fisicas; el borrado no garantiza la imposibilidad de recuperacion en laboratorio.
 
@@ -41,9 +43,9 @@ El dispositivo opera como una boveda fisica offline para el almacenamiento, cons
   * Si se detecta un cambio brusco coincidente en aceleracion y rotacion (patron de tiron o arrebato violento de la mano), el firmware llama a la rutina de bloqueo de la boveda y entra en suspension profunda (Deep Sleep). La latencia total debe medirse en el hardware de destino.
   * Sensibilidad configurable en niveles: Desactivado, Bajo, Medio y Alto.
 * Interruptor de Hombre Muerto (Dead Man's Switch):
-  * Temporizador de seguridad parametrizable (dias, semanas o meses).
-  * En caso de no registrarse un desbloqueo autenticado dentro del plazo estipulado, el dispositivo ejecuta acciones defensivas automatizadas (bloqueo permanente o formateo seguro de credenciales).
-* Bloqueo Automatico por Inactividad: Temporizador de reposo ajustable que apaga la pantalla y bloquea el acceso si no se detecta contacto tactil durante un lapso predeterminado.
+  * Plazos de 7, 14, 30, 60, 90 o 180 dias; tambien puede desactivarse.
+  * Al arrancar, si se ha cumplido el plazo sin un desbloqueo con el PIN real, se ejecuta un restablecimiento de fabrica que elimina la boveda. Los accesos con el PIN senuelo no renuevan el plazo.
+* Bloqueo Automatico por Inactividad: Ajustes de 30 segundos, 1, 2 o 5 minutos, o desactivado. El temporizador apaga la pantalla y bloquea el acceso.
 
 ---
 
@@ -106,7 +108,7 @@ El sistema permite escribir contraseñas y datos directamente en cualquier orden
 * Control de Longitud: Parametrizable de forma interactiva entre 8 y 32 caracteres mediante barra deslizante.
 * Conjuntos de Simbolos Seleccionables:
   * Letras mayusculas (A-Z).
-  * Letras minusculas (a-z).
+  * Letras minusculas (a-z) como conjunto base siempre habilitado.
   * Digitos numericos (0-9).
   * Simbolos y caracteres especiales puntuados.
 * Exclusion de Ambiguedad: Filtro opcional para eliminar caracteres visualmente confusos (como 1, l, I, 0, O).
@@ -153,7 +155,7 @@ El dispositivo incorpora dos esquemas de teclado tactil nativo disenados para op
   * Visualizacion horaria continua sincronizada con el RTC.
   * Iconografia de estado de almacenamiento MicroSD y bloqueo.
 * Sistema de Tematizacion:
-  * Modo Oscuro optimizado para bajo consumo y entornos con poca iluminacion.
+  * Modo Oscuro para entornos con poca iluminacion.
   * Modo Claro para visualizacion con luz ambiental intensa.
   * Modo Personalizado con ajuste independiente de tono (Hue) y saturacion para fondo, tarjetas y acentos.
   * Evaluacion algoritmica de luminancia perceptual para asegurar contraste legibilidad de textos en cualquier combinacion de color.
@@ -169,3 +171,21 @@ El dispositivo incorpora dos esquemas de teclado tactil nativo disenados para op
 ## 11. Aviso de privacidad por implementacion
 
 Cada implementador debe redactar, publicar y mantener su propio aviso. Los textos ES/EN de `firmware/password_manager/privacy_notice.h` se comparten entre el asistente y Ajustes. El mensaje predeterminado indica que el aviso esta pendiente de configurar; consulta [PRIVACY.es.md](docs/PRIVACY.es.md).
+
+## 12. Librerias y herramientas
+
+| Componente | Version | Funcion |
+| --- | --- | --- |
+| Arduino-ESP32 (`esp32:esp32`) | 3.3.10 | Nucleo de la placa, compilador y APIs ESP-IDF |
+| LVGL (`lvgl`) | 8.3.6 | Interfaz, controles, QR y capturas |
+| NimBLE-Arduino | 2.5.0 | Teclado BLE HID y emparejamiento |
+
+Arduino-ESP32 proporciona `SPI`, `Wire`, `FS`, `LittleFS`, `SD_MMC`, `Preferences`, `USB`, `USBHID`, `USBMSC`, mbedTLS y FreeRTOS. Los controladores ST7789, CST328, PCF85063 y QMI8658C se compilan desde los archivos del sketch.
+
+`lv_conf.h` activa color de 16 bits, tick basado en `millis()`, QR, snapshots, datos de usuario y fuentes de la interfaz. Consulta la [lista e instalacion de dependencias](docs/BUILD.es.md) para los pasos y opciones de compilacion.
+
+## 13. Energia y capturas de pantalla
+
+* Menu para bloquear, reiniciar o apagar, control de retroiluminacion y suspension profunda.
+* Capturas BMP en microSD mediante el puerto serie: `shot` (tamano original), `shot2` (escala 2x) y `shot3` (escala 3x).
+* Los archivos de captura se guardan en `/export/` de la microSD.
