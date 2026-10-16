@@ -1,0 +1,46 @@
+# Arduino IDE build and temporary files
+build/
+*.bin
+*.elf
+*.hex
+*.o
+*.d
+*.map
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Editor and IDE configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local verification and build outputs
+.work/
+
+# Device data, backups and provisioning secrets
+.env
+.env.*
+!.env.example
+*.hky
+*.pem
+*.key
+/import/
+/export/
+
+# Blender autosaves
+*.blend1
+*.blend2
