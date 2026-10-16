@@ -84,6 +84,15 @@ El sistema permite escribir contraseñas y datos directamente en cualquier orden
 * Motor de Busqueda Integrado:
   * Campo de busqueda en tiempo real con filtrado progresivo por nombre de servicio o usuario.
   * Control rapido de limpieza de consulta.
+* Modos de Vista:
+  * Lista de entradas o cuadricula de iconos con tres columnas.
+  * Preferencia de vista guardada entre sesiones.
+* Filtros y Orden:
+  * Filtros por carpeta/categoria y favoritos; busqueda por nombre o usuario.
+  * Nombre A-Z, nombre Z-A, fecha de creacion mas reciente o mas antigua.
+  * Preferencia de orden persistida en NVS.
+* Seleccion Multiple:
+  * Seleccion de varias entradas, seleccionar todas las entradas de la vista y eliminacion por lotes.
 * Enmascaramiento de Contrasenas:
   * Visualizacion ofuscada de campos confidenciales con opcion de alternancia a texto claro mediante boton tactil y confirmacion haptica.
 * Exportacion Visual por Codigo QR:
@@ -122,14 +131,14 @@ El sistema permite escribir contraseñas y datos directamente en cualquier orden
 
 El dispositivo incorpora dos esquemas de teclado tactil nativo disenados para operar con fluidez sobre paneles de 2.8 pulgadas:
 
-* Teclado Dividido KeyVault (Split Keyboard):
+* Teclado QWERTY Dividido (Split Keyboard):
   * Arquitectura basada en 6 paneles deslizantes (slides): Letras Izquierda, Letras Derecha, Simbolos 1 Izquierda, Simbolos 1 Derecha, Simbolos 2 Izquierda y Simbolos 2 Derecha.
   * Soporte de tecla Shift para una sola mayuscula y doble toque para bloqueo permanente (Caps Lock).
   * Teclas dedicadas de navegacion, borrado y aceptacion.
 * Teclado Telefonico T9 (Grid 4x4):
   * Distribucion matricial de 16 teclas con pulsacion multiple (multitap) para seleccion secuencial de letras.
   * Deteccion de pulsacion prolongada (long press) para escritura directa de digitos numericos o cadenas frecuentes (como .com).
-  * Selector agil de esquema de teclado disponible desde la configuracion de usuario.
+  * Selector de tipo de teclado QWERTY/T9 disponible en el onboarding y en Ajustes.
 
 ---
 
@@ -148,25 +157,51 @@ El dispositivo incorpora dos esquemas de teclado tactil nativo disenados para op
 
 ---
 
-## 10. Interfaz de Usuario y Experiencia (LVGL 8.x)
+## 10. Interfaz, onboarding y personalización
 
-* Barra de Estado (Status Bar):
-  * Monitor de nivel de bateria discretizado por cuartos con indicador de carga activa.
-  * Visualizacion horaria continua sincronizada con el RTC.
-  * Iconografia de estado de almacenamiento MicroSD y bloqueo.
-* Sistema de Tematizacion:
-  * Modo Oscuro para entornos con poca iluminacion.
-  * Modo Claro para visualizacion con luz ambiental intensa.
-  * Modo Personalizado con ajuste independiente de tono (Hue) y saturacion para fondo, tarjetas y acentos.
-  * Evaluacion algoritmica de luminancia perceptual para asegurar contraste legibilidad de textos en cualquier combinacion de color.
-* Notificaciones Flotantes (Toasts):
-  * Mensajes emergentes de diseno sobrio para confirmacion de operaciones (guardado, eliminacion, avisos de error) en capas superiores de la interfaz.
-* Menu de Control de Energia:
-  * Panel emergente con accesos rapidos para Apagar, Reiniciar o Bloquear el equipo.
-* Asistente de Configuracion Inicial (Onboarding):
-  * Procedimiento guiado para el primer arranque que asiste al usuario en la definicion de su PIN maestro, seleccion de idioma, ajuste de fecha/hora y preferencias base.
-* Arquitectura Multilenguaje:
-  * Sistema de cadenas i18n estructurado para soporte completo de idiomas sin dependencia de red.
+### Asistente de configuración inicial
+
+El onboarding presenta las siguientes pantallas:
+
+| Pantalla | Opciones o función |
+| --- | --- |
+| Idioma | Español o inglés |
+| Bienvenida | Introducción al dispositivo |
+| Aviso de privacidad | Texto de la implementación y confirmación de lectura |
+| Fecha | Día, mes y año |
+| Hora | Horas, minutos y formato de 12 o 24 horas |
+| Teclado | Idioma de entrada y tipo QWERTY o T9 |
+| Bloqueo automático | 30 segundos, 1, 2 o 5 minutos, o desactivado |
+| Tema | Selección de apariencia |
+| Crear PIN | PIN maestro de 6 dígitos |
+| Confirmar PIN | Verificación del PIN elegido |
+| Preparación | Progreso de creación del almacenamiento de la bóveda |
+| Finalización | Cierre de la configuración inicial |
+
+### Fecha, hora y zona horaria
+
+- Ajuste manual de día, mes y año desde la pantalla de fecha en Ajustes.
+- Ajuste de horas y minutos y selección de formato de 12 o 24 horas.
+- Reloj PCF85063 y visualización de la hora en la barra de estado.
+- Desplazamiento horario de UTC−12 a UTC+14 en pasos de 30 minutos.
+- Uso de la hora del dispositivo para TOTP y del tiempo transcurrido para el Modo perdido.
+
+### Personalización
+
+- Temas claro, oscuro y personalizado.
+- Base clara u oscura para el tema personalizado.
+- Edición independiente de fondo, tarjetas y acento mediante tono y saturación.
+- Colores de acento predefinidos: azul, verde, naranja, rosa, morado y celeste.
+- Vista previa de la paleta durante la edición y ajuste del color de texto según el fondo.
+- Idioma de la interfaz en español o inglés, guardado en las preferencias del dispositivo.
+
+### Controles e indicadores
+
+- Barra de estado con reloj, nivel de batería y animación de carga.
+- Avisos flotantes para resultados, errores y confirmaciones.
+- Respuesta háptica en las acciones de la interfaz.
+- Menú de energía para bloquear, reiniciar o apagar.
+- Selector de teclado táctil QWERTY/T9 e idioma de entrada desde Ajustes.
 
 ## 11. Aviso de privacidad por implementacion
 
@@ -184,8 +219,33 @@ Arduino-ESP32 proporciona `SPI`, `Wire`, `FS`, `LittleFS`, `SD_MMC`, `Preference
 
 `lv_conf.h` activa color de 16 bits, tick basado en `millis()`, QR, snapshots, datos de usuario y fuentes de la interfaz. Consulta la [lista e instalacion de dependencias](docs/BUILD.es.md) para los pasos y opciones de compilacion.
 
-## 13. Energia y capturas de pantalla
+## 13. Batería, energía y capturas
 
-* Menu para bloquear, reiniciar o apagar, control de retroiluminacion y suspension profunda.
-* Capturas BMP en microSD mediante el puerto serie: `shot` (tamano original), `shot2` (escala 2x) y `shot3` (escala 3x).
-* Los archivos de captura se guardan en `/export/` de la microSD.
+| Función | Comportamiento |
+| --- | --- |
+| Medición | Lectura ADC del voltaje de la LiPo con calibración y promedio de muestras |
+| Nivel | Estimación a partir del voltaje y representación en pasos de 25 % en el icono de batería |
+| Carga | Estimación por tendencia de voltaje y animación del segmento de carga |
+| Batería baja | Cambio de color del indicador al 15 % o menos, cuando no está cargando |
+| Estabilidad de lectura | Filtrado rápido/lento y compensación de transiciones de carga |
+| Energía | Bloqueo, reinicio, apagado, control de retroiluminación y suspensión profunda |
+
+Las capturas de pantalla se guardan como BMP en `/export/` de la microSD. Los comandos serie son `shot` para tamaño original, `shot2` para escala 2× y `shot3` para escala 3×.
+
+## 14. Restablecimiento de fábrica y FRP
+
+- El restablecimiento manual se inicia desde **Ajustes → Restablecer fábrica**.
+- Requiere confirmar la operación, escribir exactamente **`Reset`** y mantener pulsado el control durante **5 segundos**.
+- Borra entradas de la bóveda, PIN de acceso, carpetas/categorías, preferencias y configuración del señuelo.
+- La verificación FRP permanece almacenada después del restablecimiento.
+- Antes de configurar de nuevo el dispositivo, la pantalla FRP solicita el PIN real registrado anteriormente.
+- El contador FRP es persistente. Al tercer intento incorrecto se activa el bloqueo permanente del firmware.
+
+## 15. PIN señuelo
+
+- Se configura con un PIN distinto del PIN real.
+- Al introducirlo, se muestra una bóveda vacía y los guardados de la sesión son simulados.
+- Los registros reales no se cargan en la sesión señuelo.
+- El temporizador de restablecimiento tiene opciones de **2, 5 o 10 minutos**, con 5 minutos como valor predeterminado.
+- Al agotarse el temporizador se restablece el dispositivo y se elimina la bóveda; la protección FRP sigue activa.
+- La sesión real permite activar, cambiar o desactivar el PIN señuelo y ajustar su temporizador desde Ajustes.

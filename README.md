@@ -13,22 +13,55 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 
 ## Features
 
+### Initial setup (onboarding)
+
+- Language selection, welcome and privacy-notice screens.
+- Guided date, time, input-language, touch-keyboard, automatic-lock and theme configuration.
+- Master PIN creation and confirmation.
+- Vault preparation progress and setup-completion screens.
+
+### Date and time
+
+- Manual day, month, year, hour and minute settings in onboarding and Settings.
+- **12-hour or 24-hour** format and a status-bar clock.
+- Time-zone offsets from **UTC−12 to UTC+14**, in 30-minute steps.
+- A **PCF85063** RTC keeps time and supports TOTP without internet synchronization.
+
 ### Credentials and organization
 
-- Accounts with a title, username, password, notes/URL and TOTP secret.
-- Secret and note records for codes, keys and private text.
-- Folders and categories: create, rename, move entries and delete.
-- Favorites and search by account name or username.
-- Hidden sensitive fields with a reveal option and visual transfer through QR codes.
+- Accounts with title, username, password, notes/URL and TOTP secret; secret and note records.
+- Create and edit entries, folders and categories; rename and move records.
+- Favorites and hidden sensitive fields with a reveal option.
+- Visual data transfer through QR codes.
+
+### Views, search, filters and sorting
+
+- **List** and **three-column icon grid** entry views.
+- Sort by **name A–Z**, **name Z–A**, **newest first** or **oldest first**; date sorting uses entry creation time.
+- Folder/category and favorites filters, plus search by name or username.
+- Multiple selection, select all entries in the current view and batch deletion.
+- View mode and sorting choices are saved in preferences.
 
 ### PIN and vault
 
-- A **6-digit master PIN**, with PIN changes from Settings and entry re-encryption.
-- **AES-256-CBC** encryption with a random IV per operation and **50,000-iteration PBKDF2-HMAC-SHA256** key derivation.
-- LittleFS vault storage and NVS device preferences.
-- A persistent failed-attempt counter; **five consecutive incorrect PIN attempts reset the device and erase the vault**.
-- A decoy PIN opens a session without access to real credentials, with simulated saves and a configurable timer that resets the device and erases the vault.
-- Factory Reset Protection (FRP) tied to the previous PIN.
+- A **6-digit master PIN**, with changes from Settings and entry re-encryption.
+- **AES-256-CBC**, a random IV per operation and **50,000-iteration PBKDF2-HMAC-SHA256**.
+- LittleFS vault storage and NVS configuration.
+- A persistent attempt counter: **five consecutive incorrect PIN attempts reset the device and erase the vault**.
+
+### Decoy PIN
+
+- An alternate PIN, different from the real one, opens an empty vault without access to real credentials.
+- Saves in the decoy session are simulated.
+- A configurable **2-, 5- or 10-minute** timer resets the device and erases the vault when it expires.
+- Enable, change or disable the decoy PIN from Settings.
+
+### Factory reset and FRP
+
+- Manual factory reset from Settings, with a confirmation notice, entry of the word **`Reset`** and a **5-second** press-and-hold.
+- Deletes entries, the access PIN, folders and device preferences.
+- **Factory Reset Protection (FRP)** retains verification of the previous PIN and requests it before device setup can resume.
+- **Three incorrect FRP attempts** activate the firmware's permanent lockout.
 
 ### Locking and physical protection
 
@@ -41,34 +74,45 @@ A hardware password manager built for **Waveshare ESP32-S3-Touch-LCD-2.8**. Stor
 - **USB HID** and wireless **Bluetooth Low Energy HID** keyboard modes.
 - **ES-LAT, ES-ES and US** layouts, including letter, symbol and modifier mappings.
 - Type a username followed by Tab, a password followed by Enter, TOTP codes or generated passwords.
-- Bluetooth pairing-code confirmation and bonded-device management from Settings.
+- Pairing-code confirmation and Bluetooth bonded-device management.
+
+### T9 and QWERTY touch keyboards
+
+- Keyboard-type selection in onboarding and Settings.
+- **Sliding QWERTY**: two letter pages and four symbol pages, with Shift and Caps Lock.
+- **4 × 4 T9**: phone-style multitap letters, with long-press numbers and shortcuts.
+- Delete, confirm and panel-switching controls while typing.
+
+### Interface personalization
+
+- **Spanish and English**, plus **light, dark and custom** themes.
+- Independent **background**, **card** and **accent** colors, with hue and saturation controls.
+- Light or dark bases for the custom theme and preset accent colors.
+- Automatic text-color adjustment based on the background, toast messages and haptic feedback.
 
 ### TOTP and password generation
 
-- **6-digit** HMAC-SHA1 TOTP codes with **30-second** intervals, compatible with RFC 6238.
-- A **PCF85063** clock keeps time without internet synchronization; an on-screen countdown shows code validity.
-- An **8–32-character** generator with lowercase letters, optional uppercase letters, digits and symbols, and an ambiguity filter.
+- **6-digit** HMAC-SHA1 TOTP codes at **30-second** intervals, compatible with RFC 6238, with an on-screen countdown.
+- An **8–32-character** generator: lowercase as the base character set, optional uppercase letters, digits and symbols, and an ambiguity filter.
 - A standalone generator and form-integrated generation, with direct typing into the connected device.
 
 ### Backups and transfer
 
-- Export and import **encrypted `.hky` backups**, using a password independent of the PIN and **100,000-iteration PBKDF2**.
-- **CSV** import/export for record migration. CSV files contain readable plaintext data.
-- Block-based imports to keep the interface responsive and exported-file cleanup on microSD.
-- **USB Mass Storage (MSC)** access to the microSD from a computer, with an optional read-only mode.
-- Exclusive storage mode: the application and keyboard functions are suspended while MSC is active.
+- **Encrypted `.hky` backups** with a password independent of the PIN and **100,000-iteration PBKDF2**.
+- **CSV** import/export; CSV files contain readable plaintext data.
+- Block-based imports and exported-file cleanup on microSD.
+- **USB Mass Storage (MSC)** access to microSD, with an optional read-only mode.
+- Exclusive storage mode: application and keyboard functions are suspended while it is active.
 
-### Touch interface
+### Battery and power
 
-- **Spanish and English** languages and **light, dark and custom** themes.
-- Hue and saturation adjustments for the background, cards and accents.
-- A **6-panel** split keyboard with Shift and Caps Lock, plus a **4 × 4 T9** keyboard with multitap and long-press input.
-- Initial setup for language, privacy notice, date/time, keyboard layout, locking, theme and PIN.
-- A status bar for time, battery, charging and microSD; toast messages and haptic feedback.
-
-### Power and screenshots
-
+- LiPo voltage monitoring and battery-level estimation.
+- A status-bar level indicator, charging animation and low-battery indication.
+- Reading filters and compensation for voltage changes when charging connects or disconnects.
 - Lock, restart and shutdown controls, backlight management and Deep Sleep.
+
+### Screenshots and project resources
+
 - **BMP screenshots on microSD** through the serial commands `shot`, `shot2` and `shot3`.
 - Source code, manuals, whitepaper, render gallery, UI screens and editable Blender enclosure.
 

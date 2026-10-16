@@ -13,27 +13,60 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 
 ## Características
 
+### Configuración inicial (onboarding)
+
+- Pantallas de selección de idioma, bienvenida y aviso de privacidad.
+- Configuración guiada de fecha, hora, idioma de entrada, teclado táctil, bloqueo automático y tema.
+- Creación y confirmación del PIN maestro.
+- Pantalla de progreso para preparar la bóveda y pantalla de finalización.
+
+### Fecha y hora
+
+- Ajuste manual de día, mes, año, horas y minutos desde el onboarding y Ajustes.
+- Formato de **12 o 24 horas** y reloj visible en la barra de estado.
+- Zona horaria configurable de **UTC−12 a UTC+14**, en pasos de 30 minutos.
+- RTC **PCF85063** para mantener la hora y generar TOTP sin sincronización por internet.
+
 ### Credenciales y organización
 
-- Cuentas con título, usuario, contraseña, notas/URL y secreto TOTP.
-- Registros de secretos y notas para guardar códigos, claves y texto privado.
-- Carpetas y categorías: creación, cambio de nombre, traslado de entradas y eliminación.
-- Favoritos y búsqueda por nombre o usuario.
-- Campos sensibles ocultos con opción de mostrarlos y transferencia visual mediante QR.
+- Cuentas con título, usuario, contraseña, notas/URL y secreto TOTP; registros de secretos y notas.
+- Creación y edición de entradas, carpetas y categorías; cambio de nombre y traslado de registros.
+- Favoritos y campos sensibles ocultos con opción de mostrarlos.
+- Transferencia visual de datos mediante QR.
+
+### Vistas, búsqueda, filtros y orden
+
+- Vista de entradas en **lista** o **cuadrícula de iconos de tres columnas**.
+- Orden por **nombre A–Z**, **nombre Z–A**, **fecha reciente** o **fecha antigua**; el orden por fecha utiliza la creación de la entrada.
+- Filtros por carpeta/categoría y favoritos, y búsqueda por nombre o usuario.
+- Selección múltiple, selección de todas las entradas de la vista y eliminación por lotes.
+- El modo de vista y el orden elegido se guardan en las preferencias.
 
 ### PIN y bóveda
 
-- PIN maestro de **6 dígitos**, con cambio de PIN desde Ajustes y recifrado de las entradas.
-- Cifrado **AES-256-CBC** con IV aleatorio por operación y derivación **PBKDF2-HMAC-SHA256 de 50 000 iteraciones**.
-- Bóveda en LittleFS y preferencias del dispositivo en NVS.
-- Contador persistente de intentos fallidos; **cinco fallos consecutivos de PIN restablecen el dispositivo y borran la bóveda**.
-- PIN señuelo para abrir una sesión sin acceso a las credenciales reales, con guardados simulados y un temporizador configurable que restablece el dispositivo y borra la bóveda.
-- Protección de restablecimiento de fábrica (FRP) vinculada al PIN anterior.
+- PIN maestro de **6 dígitos**, con cambio desde Ajustes y recifrado de las entradas.
+- **AES-256-CBC**, IV aleatorio por operación y **PBKDF2-HMAC-SHA256 de 50 000 iteraciones**.
+- Bóveda en LittleFS y configuración en NVS.
+- Contador persistente de intentos: **cinco fallos consecutivos de PIN restablecen el dispositivo y borran la bóveda**.
+
+### PIN señuelo
+
+- PIN alternativo, distinto del real, que abre una bóveda vacía sin acceso a las credenciales reales.
+- Los guardados en la sesión señuelo son simulados.
+- Temporizador de **2, 5 o 10 minutos**, configurable en Ajustes, que restablece el dispositivo y elimina la bóveda al agotarse.
+- Opciones para activar, cambiar o desactivar el PIN señuelo.
+
+### Restablecimiento de fábrica y FRP
+
+- Restablecimiento manual desde Ajustes, con aviso de confirmación, escritura de la palabra **`Reset`** y pulsación sostenida de **5 segundos**.
+- Elimina las entradas, el PIN de acceso, las carpetas y las preferencias del dispositivo.
+- **Factory Reset Protection (FRP)** conserva la verificación del PIN anterior y la solicita para volver a configurar el dispositivo.
+- **Tres intentos FRP incorrectos** activan el bloqueo permanente del firmware.
 
 ### Bloqueo y protección física
 
 - Bloqueo por inactividad a los **30 segundos, 1, 2 o 5 minutos**, o desactivado.
-- **Snatch Lock**: detección de aceleración y giro mediante QMI8658C, seguida de bloqueo y suspensión profunda. Sensibilidad baja, media, alta o desactivada.
+- **Snatch Lock**: detección de aceleración y giro con QMI8658C, seguida de bloqueo y suspensión profunda. Sensibilidad baja, media, alta o desactivada.
 - **Modo perdido**: restablecimiento al arrancar si transcurren **7, 14, 30, 60, 90 o 180 días** sin un desbloqueo con el PIN real, según la configuración.
 
 ### Teclado USB y Bluetooth
@@ -41,35 +74,46 @@ Gestor de contraseñas físico basado en **Waveshare ESP32-S3-Touch-LCD-2.8**. G
 - Teclado **USB HID** y teclado inalámbrico **Bluetooth Low Energy HID**.
 - Distribuciones **ES-LAT, ES-ES y US**, con mapeo de letras, símbolos y modificadores.
 - Envío de usuario seguido de Tab, contraseña seguida de Enter, códigos TOTP y contraseñas generadas.
-- Confirmación del código de emparejamiento Bluetooth y gestión de dispositivos vinculados desde Ajustes.
+- Confirmación del código de emparejamiento y gestión de dispositivos Bluetooth vinculados.
+
+### Teclados táctiles T9 y QWERTY
+
+- Selector de tipo de teclado en el onboarding y en Ajustes.
+- **QWERTY deslizante**: dos páginas de letras y cuatro de símbolos, con Shift y bloqueo de mayúsculas.
+- **T9 de 4 × 4**: teclado telefónico con pulsación múltiple para letras y pulsación prolongada para números y atajos.
+- Controles para borrar, confirmar y cambiar de panel durante la escritura.
+
+### Personalización de la interfaz
+
+- Idiomas **español e inglés** y temas **claro, oscuro y personalizado**.
+- Edición independiente del **fondo**, las **tarjetas** y el **color de acento**, con ajustes de tono y saturación.
+- Base clara u oscura para el tema personalizado y selección de colores de acento predefinidos.
+- Ajuste automático del color de texto según el fondo, avisos flotantes y respuesta háptica.
 
 ### TOTP y generador de contraseñas
 
-- Códigos TOTP de **6 dígitos**, HMAC-SHA1 e intervalos de **30 segundos**, compatibles con RFC 6238.
-- Reloj **PCF85063** para mantener la hora sin sincronización por internet; cuenta atrás de validez en pantalla.
-- Generador de **8 a 32 caracteres** con minúsculas, opciones de mayúsculas, números y símbolos, y filtro de caracteres ambiguos.
+- Códigos TOTP de **6 dígitos**, HMAC-SHA1 e intervalos de **30 segundos**, compatibles con RFC 6238, con cuenta atrás en pantalla.
+- Generador de **8 a 32 caracteres**: minúsculas como conjunto base, mayúsculas, números y símbolos opcionales, y filtro de caracteres ambiguos.
 - Generador independiente e integrado en los formularios, con envío directo al equipo conectado.
 
 ### Respaldos y transferencia
 
-- Exportación e importación de respaldos **`.hky` cifrados**, con contraseña independiente del PIN y PBKDF2 de **100 000 iteraciones**.
-- Importación y exportación **CSV** para migrar registros. El CSV contiene los datos en texto legible.
-- Importación por bloques para mantener la respuesta de la interfaz y limpieza de archivos exportados en la microSD.
-- Modo **USB Mass Storage (MSC)** para acceder a la microSD desde el ordenador, con opción de solo lectura.
-- Modo de almacenamiento exclusivo: al activarlo, la aplicación y las funciones de teclado quedan suspendidas.
+- Respaldos **`.hky` cifrados**, con contraseña independiente del PIN y PBKDF2 de **100 000 iteraciones**.
+- Importación y exportación **CSV**; el CSV contiene los datos en texto legible.
+- Importación por bloques y limpieza de archivos exportados en la microSD.
+- Modo **USB Mass Storage (MSC)** para acceder a la microSD, con opción de solo lectura.
+- Modo de almacenamiento exclusivo: la aplicación y las funciones de teclado quedan suspendidas mientras está activo.
 
-### Interfaz táctil
+### Batería y energía
 
-- Idiomas **español e inglés** y temas **claro, oscuro y personalizado**.
-- Ajuste de tono y saturación para fondo, tarjetas y acentos.
-- Teclado dividido en **6 paneles**, con Shift y bloqueo de mayúsculas, y teclado **T9 de 4 × 4** con pulsación múltiple y prolongada.
-- Asistente inicial para idioma, aviso de privacidad, fecha y hora, distribución de teclado, bloqueo, tema y PIN.
-- Barra de estado con hora, batería, carga y microSD; avisos flotantes y respuesta háptica.
-
-### Energía y capturas
-
+- Lectura de voltaje de la LiPo y estimación del nivel de batería.
+- Indicador de nivel en la barra de estado, animación de carga y señal de batería baja.
+- Filtrado de lecturas y compensación de cambios de tensión al conectar o desconectar la carga.
 - Menú para bloquear, reiniciar o apagar, control de retroiluminación y suspensión profunda.
-- Capturas de pantalla **BMP en microSD** mediante los comandos serie `shot`, `shot2` y `shot3`.
+
+### Capturas y recursos del proyecto
+
+- Capturas **BMP en microSD** mediante los comandos serie `shot`, `shot2` y `shot3`.
 - Código fuente, manuales, whitepaper, galería de renders, pantallas de UI y carcasa editable en Blender.
 
 Consulta [FEATURES.es.md](FEATURES.es.md) para el detalle de cada módulo.

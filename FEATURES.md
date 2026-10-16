@@ -15,7 +15,7 @@ The device functions as an offline cryptographic vault for the secure storage, r
 * **Microcontroller**: Espressif ESP32-S3 (Dual-Core Xtensa LX7 up to 240 MHz with integrated Flash and PSRAM).
 * **Display**: 2.8-inch IPS TFT LCD, 240x320 resolution, driven by an ST7789 controller over SPI at 80 MHz.
 * **Touch Digitizer**: CST328 capacitive touch controller over a dedicated I2C interface (Wire1 bus) supporting continuous gestures and multi-region taps.
-* **Real-Time Clock (RTC)**: Dedicated PCF85063 chip on the primary I2C interface (Wire bus) with battery backup, maintaining UTC time independent of the host MCU.
+* **Real-Time Clock (RTC)**: Dedicated PCF85063 chip on the primary I2C interface (Wire bus) with battery backup, keeping the configured date and time independent of the host MCU.
 * **Inertial Measurement Unit (IMU)**: QMI8658C 6-axis accelerometer and gyroscope over I2C (Wire bus) for real-time dynamic motion and tilt monitoring.
 * **Removable Storage**: MicroSD card slot wired in native 1-bit SD_MMC mode for high-speed transfers and electrical isolation.
 * **Haptic Feedback**: Coreless ERM vibration motor driven by an onboard transistor to provide physical feedback on keypad taps and system confirmations.
@@ -81,6 +81,15 @@ The device directly types passwords and credentials into any connected PC, Mac, 
   * Quick-marking entries with a favorite star for immediate access from the top of the main vault view.
 * **Real-Time Search**:
   * Incremental instant-search filtering entries as characters are typed, with a dedicated single-tap clear button.
+* **View Modes**:
+  * Entry list or a three-column icon grid.
+  * View preferences saved across sessions.
+* **Filters and Sorting**:
+  * Folder/category and favorites filters; search by name or username.
+  * Name A-Z, name Z-A, newest creation date or oldest creation date.
+  * Sorting preference persisted in NVS.
+* **Multiple Selection**:
+  * Select several entries, select all entries in the current view and batch delete.
 * **Protected Password Visibility**:
   * Passwords are masked (`••••••`) by default. An eye toggle button temporarily reveals plain text accompanied by haptic feedback.
 * **Visual QR Code Sharing**:
@@ -92,7 +101,7 @@ The device directly types passwords and credentials into any connected PC, Mac, 
 
 * **Standard Compliance**: Fully compliant with RFC 6238 (HMAC-SHA1, 6-digit tokens, 30-second validity window), drop-in compatible with Google Authenticator and Microsoft Authenticator.
 * **Network-Independent Clock**:
-  * Token calculations rely on the dedicated hardware PCF85063 RTC, preserving exact UTC timekeeping without internet access.
+  * Token calculations use the PCF85063 RTC and the configured time-zone offset.
 * **Dynamic On-Screen Timer**:
   * Real-time visual countdown wheel and numerical display tracking seconds remaining before token regeneration.
 * **Automated Typing**:
@@ -117,7 +126,7 @@ The device directly types passwords and credentials into any connected PC, Mac, 
 
 ## 8. Virtual On-Screen Keyboards
 
-* **Split Keyboard (6 Sliding Panels)**:
+* **Split QWERTY Keyboard (6 Sliding Panels)**:
   * Designed for the 2.8-inch display: Left Letters, Right Letters, Left Symbols 1, Right Symbols 1, Left Symbols 2, Right Symbols 2.
   * Single tap for one-shot uppercase; double-tap for persistent Caps Lock.
   * Fluid horizontal slide animations between layouts.
@@ -125,7 +134,7 @@ The device directly types passwords and credentials into any connected PC, Mac, 
   * Retro 16-key telephone layout with large touch targets.
   * Multitap cycling for letters (e.g., tap 2 repeatedly for A, B, C).
   * Long-press detection to type direct numbers, `.com`, or space.
-  * Instant toggling between Split Keyboard and T9 Keypad via Settings.
+  * QWERTY/T9 keyboard selection during onboarding and from Settings.
 
 ---
 
@@ -144,19 +153,51 @@ The device directly types passwords and credentials into any connected PC, Mac, 
 
 ---
 
-## 10. User Interface and Experience (LVGL 8.x)
+## 10. Interface, onboarding and personalization
 
-* **Status Bar**:
-  * Discrete battery level monitor in 25% increments with animated pulsing during charging.
-  * Real-time 24-hour digital clock.
-  * MicroSD card presence and lock status indicators.
-* **Theme Engine**:
-  * Dark Theme optimized for low-power and low-light environments.
-  * Light Theme for high-ambient readability.
-  * Custom Theme allowing independent Hue and Saturation tuning for backgrounds, cards, and accent buttons. Computes perceptual luminance in real time to guarantee legible black or white text contrast.
-* **Haptic Feedback**: Tactile vibration confirming keyboard taps, form submissions, and warning dialogs.
-* **Non-Intrusive Toast Notifications**: Soft animated badges confirming actions (Saved, Deleted, Error) without disrupting navigation.
-* **Initial Setup Assistant (Onboarding)**: Guided first-boot flow assisting the user in setting the master PIN, language, date, and time.
+### Initial setup wizard
+
+Onboarding presents the following screens:
+
+| Screen | Options or purpose |
+| --- | --- |
+| Language | Spanish or English |
+| Welcome | Device introduction |
+| Privacy notice | Implementation-specific text and reading acknowledgement |
+| Date | Day, month and year |
+| Time | Hours, minutes and 12-hour or 24-hour format |
+| Keyboard | Input language and QWERTY or T9 type |
+| Automatic locking | 30 seconds, 1, 2 or 5 minutes, or disabled |
+| Theme | Appearance selection |
+| Create PIN | A 6-digit master PIN |
+| Confirm PIN | Verification of the selected PIN |
+| Preparation | Vault storage creation progress |
+| Completion | End of initial setup |
+
+### Date, time and time zone
+
+- Manual day, month and year adjustment from the date screen in Settings.
+- Hour and minute adjustment and 12-hour or 24-hour format selection.
+- PCF85063 clock and status-bar time display.
+- Time-zone offsets from UTC−12 to UTC+14 in 30-minute steps.
+- Device time for TOTP and elapsed time for Lost mode.
+
+### Personalization
+
+- Light, dark and custom themes.
+- Light or dark bases for the custom theme.
+- Independent background, card and accent editing through hue and saturation.
+- Preset accent colors: blue, green, orange, pink, purple and cyan.
+- Palette preview while editing and text-color adjustment based on the background.
+- Spanish or English interface language, saved in device preferences.
+
+### Controls and indicators
+
+- Status bar with a clock, battery level and charging animation.
+- Toasts for results, errors and confirmations.
+- Haptic feedback for interface actions.
+- Power menu for locking, restarting or shutting down.
+- QWERTY/T9 touch-keyboard and input-language selection from Settings.
 
 ## 11. Implementation-specific privacy notice
 
@@ -174,8 +215,33 @@ Arduino-ESP32 supplies `SPI`, `Wire`, `FS`, `LittleFS`, `SD_MMC`, `Preferences`,
 
 `lv_conf.h` enables 16-bit color, a `millis()` tick source, QR, snapshots, user data and interface fonts. See [dependency installation](docs/BUILD.md) for steps and build settings.
 
-## 13. Power and screenshots
+## 13. Battery, power and screenshots
 
-* Lock, restart and shutdown controls, backlight management and Deep Sleep.
-* BMP screenshots on microSD through the serial port: `shot` (original size), `shot2` (2x scale) and `shot3` (3x scale).
-* Screenshots are saved under `/export/` on the microSD.
+| Function | Behavior |
+| --- | --- |
+| Measurement | Calibrated LiPo voltage readings through the ADC, with sample averaging |
+| Level | Voltage-based estimation, shown in 25% steps in the battery icon |
+| Charging | Voltage-trend estimation and charging-segment animation |
+| Low battery | Indicator color change at 15% or below when not charging |
+| Reading stability | Fast/slow filtering and charging-transition compensation |
+| Power | Lock, restart, shutdown, backlight control and Deep Sleep |
+
+Screenshots are saved as BMP files under `/export/` on microSD. Serial commands are `shot` for original size, `shot2` for 2× scale and `shot3` for 3× scale.
+
+## 14. Factory reset and FRP
+
+- Manual reset starts from **Settings → Factory reset**.
+- It requires confirmation, entry of exactly **`Reset`** and a **5-second** press-and-hold.
+- Deletes vault entries, the access PIN, folders/categories, preferences and decoy configuration.
+- FRP verification remains stored after the reset.
+- Before device setup resumes, the FRP screen requests the previously registered real PIN.
+- The FRP attempt counter is persistent. The third incorrect attempt activates the firmware's permanent lockout.
+
+## 15. Decoy PIN
+
+- Configured with a PIN different from the real PIN.
+- Entering it displays an empty vault, and session saves are simulated.
+- Real records are not loaded into the decoy session.
+- The reset timer offers **2, 5 or 10 minutes**, with a 5-minute default.
+- Timer expiration resets the device and erases the vault; FRP remains active.
+- From the real session, Settings allows enabling, changing or disabling the decoy PIN and adjusting its timer.
