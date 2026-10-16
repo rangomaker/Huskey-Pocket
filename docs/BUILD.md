@@ -118,9 +118,13 @@ arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashM
 
 Firmware output is written to `build/`.
 
+## Secure Boot and firmware upload
+
+The build command documented here produces an image **without a Secure Boot signature**. If Secure Boot is enabled on your unit, Arduino IDE cannot upload that binary directly: the application must be signed with a key authorized by the unit and written through a download method supported by its eFuses. This repository does not include HuskeyFlasher or an OTA updater. USB MSC provides access to the microSD only. Keep the private key outside the repository and never share it.
+
 ## Device checks
 
-After uploading firmware **1.0.1**, check:
+After installing firmware **1.0.1** on a test device, check:
 
 1. **Sliding keyboard:** switch repeatedly between letters and symbols, including while a panel transition finishes. Returning to letters must leave the keyboard in letter mode.
 2. **T9:** enter a character and press **OK** before the multi-tap timeout. The character must be retained and the field confirmed.

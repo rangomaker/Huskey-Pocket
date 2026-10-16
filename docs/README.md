@@ -14,9 +14,9 @@
 
 ## Manuales / Manuals
 
-El [estado actual de pruebas y revisiones](../README.es.md#pruebas-y-revisiones) distingue las revisiones de memoria de una auditoría de seguridad. **El proyecto no ha recibido auditorías de seguridad**; las menciones a ellas en los manuales anteriores no deben interpretarse como una auditoría realizada.
+Los manuales de referencia se actualizaron para reflejar la versión 1.0.1, el hardware y las pruebas conocidas. Huskey Pocket no ha recibido una auditoría de seguridad; las revisiones de memoria asistidas por IA no equivalen a una auditoría. Consulta el [estado de pruebas](../README.es.md#pruebas-y-revisiones).
 
-The [current testing and review status](../README.md#testing-and-reviews) distinguishes memory reviews from a security audit. **The project has not undergone a security audit**; references to security audits in earlier manuals should not be interpreted as evidence of a completed audit.
+The reference manuals were updated to reflect firmware 1.0.1, the hardware and the known test status. Huskey Pocket has not undergone a security audit; AI-assisted memory reviews are not a security audit. See the [testing status](../README.md#testing-and-reviews).
 
 | Archivo | Contenido |
 | --- | --- |

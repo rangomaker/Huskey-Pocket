@@ -118,9 +118,13 @@ arduino-cli compile --fqbn "esp32:esp32:esp32s3:CPUFreq=240,FlashSize=16M,FlashM
 
 El firmware se genera en `build/`.
 
+## Secure Boot y carga del firmware
+
+El comando de compilación documentado aquí genera una imagen **sin firma Secure Boot**. Si tu unidad tiene Secure Boot habilitado, Arduino IDE no puede cargar directamente ese binario: la aplicación debe firmarse con la clave autorizada por la unidad y escribirse mediante un método de descarga compatible con sus eFuses. Este repositorio no incluye HuskeyFlasher ni un actualizador OTA. El modo USB MSC solo da acceso a la microSD. Conserva la clave privada fuera del repositorio y no la compartas.
+
 ## Comprobación en el dispositivo
 
-Después de cargar el firmware **1.0.1**, comprueba:
+Cuando el firmware **1.0.1** se instale en un equipo de prueba, comprueba:
 
 1. **Teclado deslizante:** alterna varias veces entre letras y símbolos, incluso mientras termina un cambio de panel. Al volver a letras, el teclado debe permanecer en letras.
 2. **T9:** escribe un carácter y pulsa **OK** antes de que termine la pulsación múltiple. Debe conservar el carácter y confirmar el campo.

@@ -11,6 +11,7 @@ Compilación y pruebas de regresión completadas. Las correcciones de esta versi
 - **MicroSD:** montaje y limpieza de arranque en segundo plano, después de mostrar la pantalla de acceso. La tarjeta queda disponible al terminar la inicialización; se conserva el contenido de `/import`.
 - **Diagnóstico de SD:** tiempos separados de montaje y limpieza por el puerto serie. Los errores al sobrescribir un archivo impiden su eliminación.
 - **Licencias:** textos de licencia de Inter y Material Symbols incluidos con las fuentes convertidas.
+- **Manuales:** datos de memoria, cifrado, RTC, microSD, FRP, Secure Boot y pruebas revisados según el firmware actual.
 
 ### English
 
@@ -21,3 +22,4 @@ Compilation and regression tests completed. This version's fixes are pending val
 - **MicroSD:** startup mounting and cleanup run in the background after the access screen is shown. The card becomes available when initialization completes; `/import` contents are preserved.
 - **SD diagnostics:** separate mount and cleanup timings over serial. Failed file overwrites prevent removal.
 - **Licenses:** Inter and Material Symbols license texts included with the converted fonts.
+- **Manuals:** memory, encryption, RTC, microSD, FRP, Secure Boot and test information revised to match the current firmware.
